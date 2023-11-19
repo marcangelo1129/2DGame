@@ -40,7 +40,7 @@ public class Player extends Entity {
     {
         worldX = gamepanel.tileSize * 23;
         worldY = gamepanel.tileSize * 20;
-        speed = 4;
+        speed = 3;
         direction = "up";
     }
     public void getPlayerImage()
