@@ -40,13 +40,8 @@ public class Player extends Entity {
     {
         worldX = gamepanel.tileSize * 23;
         worldY = gamepanel.tileSize * 20;
-<<<<<<< Updated upstream
         speed = 4;
-        direction = "up";
-=======
-        speed = 3;
         direction = "down";
->>>>>>> Stashed changes
     }
     public void getPlayerImage()
     {
