@@ -15,8 +15,6 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
 import main.Main;
-import object.guns.Gun_AssaultRifle;
-import object.guns.WeaponObject;
 
 /**
  *
@@ -30,7 +28,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     
-    public WeaponObject[] weaponStorage = new WeaponObject[4];
+    public object.guns.WeaponObject[] weaponStorage = new object.guns.WeaponObject[4];
     public int equippedWeapon = 0;
     
     public Player (GamePanel gamepanel, KeyHandler KeyHandler, Main Main)
@@ -191,7 +189,7 @@ public class Player extends Entity {
                 case "AmmoBox":
                     break;
                 case "AssaultRifle":
-                    weaponStorage[0] = new Gun_AssaultRifle();
+                    weaponStorage[0] = new object.guns.Gun_AssaultRifle();
                     gamepanel.ui.showMessage("Assault Rifle Equipped", screenX-43, screenY);
                     break;
             }

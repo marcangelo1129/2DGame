@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package main;
+package userInterface;
 
 import entity.Player;
 import java.awt.AlphaComposite;
@@ -15,14 +15,13 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import main.GamePanel;
 
 /**
  *
  * @author Dangerouze
  */
-public class UI {
+public class UIGame {
     GamePanel gp;
     Player player;
     Font UIfont;
@@ -33,8 +32,9 @@ public class UI {
     Point messageloc = null;
     int messageCounter = 0;
     float transparency = 1;
+    UIObject[] UIObject = new UIObject[6];
     
-    public UI(GamePanel gp, Player player)
+    public UIGame(GamePanel gp, Player player)
     {
         try {
             this.UIfont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\Valorax.otf")).deriveFont(12f);
@@ -44,6 +44,7 @@ public class UI {
         this.gp = gp;
         this.player = player;
         MsgFont = new Font("Arial", MsgFont.PLAIN, 15);
+        UIObject[0] = new BTN_1();
     }
     
     public void showMessage(String text, int x, int y)

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
  */
 package main;
+import userInterface.UIGame;
 import entity.Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -45,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
      Thread gameThread;
     //ENTITY & OBJECT
     public Player player = new Player(this, KeyHandler, main);
-    public UI ui = new UI(this, player);
+    public UIGame ui = new UIGame(this, player);
     public SuperObject obj[] = new SuperObject[10];
     public WeaponObject wbj[] = new WeaponObject[4];
     
