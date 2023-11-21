@@ -14,9 +14,10 @@ public class WeaponObject {
     public BufferedImage image;
     public String name;
     public int worldX, worldY;
-    public int AmmoPerClip;
+    public int MaxAmmoPerClip;
     public int AmmoinClipRemaining;
-    public int totalAmmo;
+    public int AmmoRemaining;
+    public int MaxAmmo;
     public int fireRate;
     public int damage;
     public int centerX;

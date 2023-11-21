@@ -13,14 +13,14 @@ import javax.imageio.ImageIO;
  *
  * @author Dangerouze
  */
-public class BTN_1_Pressed extends UIObject {
-    public BTN_1_Pressed()
+public class ammo_icon extends UIObject {
+    public ammo_icon()
     {
-        name = "BTN1Pressed";
+        name = "BTN1";
         area = new Rectangle(15,20,30, 30);
         try
         {
-            image = ImageIO.read(new File("Sprites/userInterface/GameUI/BTN_1_Pressed.png"));
+            image = ImageIO.read(new File("Sprites/userInterface/GameUI/ammo_icon.png"));
         }catch(IOException ex) {ex.printStackTrace();}
     }
 }

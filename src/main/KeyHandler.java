@@ -15,7 +15,7 @@ import java.awt.event.KeyListener;
 //this class handles the player's key inputs
 public class KeyHandler implements KeyListener {
     
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, onePressed, twoPressed, threePressed;
 
     @Override
     public void keyTyped(KeyEvent e) {} // useless
@@ -41,6 +41,19 @@ public class KeyHandler implements KeyListener {
         { 
             rightPressed = true;
         }
+        if (code == KeyEvent.VK_1)
+        {
+            onePressed = true;
+        }
+        if (code == KeyEvent.VK_2)
+        { 
+            twoPressed = true;
+        }
+        if (code == KeyEvent.VK_3)
+        { 
+            threePressed = true;
+        }
+        
     }
 
     @Override

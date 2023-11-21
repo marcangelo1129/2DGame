@@ -72,6 +72,23 @@ public class Player extends Entity {
     
     public void update()
     {
+        if (KeyHandler.onePressed == true)
+        {
+            equippedWeapon = 0;
+            KeyHandler.onePressed = false;
+        }
+        if (KeyHandler.twoPressed == true)
+        {
+            equippedWeapon = 1;
+            KeyHandler.twoPressed = false;
+        }
+        if (KeyHandler.threePressed == true)
+        {
+            equippedWeapon = 2;
+            KeyHandler.threePressed = false;
+        }
+        
+        
         if (KeyHandler.upPressed == true || KeyHandler.downPressed == true || KeyHandler.leftPressed == true || KeyHandler.rightPressed == true)
         {
             if (KeyHandler.upPressed == true && KeyHandler.leftPressed == true)

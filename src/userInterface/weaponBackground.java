@@ -5,6 +5,7 @@
 package userInterface;
 
 import java.awt.Rectangle;
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -16,10 +17,10 @@ public class weaponBackground extends UIObject {
     public weaponBackground()
     {
         name = "weaponUI";
-        area = new Rectangle(1,1,255, 128);
+        area = new Rectangle(10,422,288, 144);
         try
         {
-            image = ImageIO.read(getClass().getResourceAsStream("/UI/GameUI/weaponBackground.png"));
+            image = ImageIO.read(new File("Sprites/userInterface/GameUI/weaponBackground.png"));
         }catch(IOException ex) {ex.printStackTrace();}
     }
 }

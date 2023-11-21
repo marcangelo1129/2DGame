@@ -15,10 +15,11 @@ public class Gun_AssaultRifle extends WeaponObject {
     
     public Gun_AssaultRifle()
     {
-        name = "AssaultRifle";
-        AmmoPerClip = 30;
-        AmmoinClipRemaining = AmmoPerClip;
-        totalAmmo = 120;
+        name = "Assault Rifle";
+        MaxAmmoPerClip = 30;
+        AmmoinClipRemaining = MaxAmmoPerClip;
+        AmmoRemaining = 120;
+        MaxAmmo = AmmoRemaining;
         fireRate = 0;
         damage = 0;
         centerX = 0;

@@ -10,3 +10,6 @@
 
 (Marc) Version 0.0.10   --->  = Fixed visual bug where weapon doesn't align with cursor in certain angles
                               + Added crosshair cursor
+
+(Marc) Version 0.0.11   --->  + Added GUI for weapons
+                              + Added weapon switching

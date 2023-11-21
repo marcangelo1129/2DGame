@@ -12,6 +12,7 @@ import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,12 +33,12 @@ public class UIGame {
     Point messageloc = null;
     int messageCounter = 0;
     float transparency = 1;
-    UIObject[] UIObject = new UIObject[6];
+    UIObject[] UIObject = new UIObject[8];
     
     public UIGame(GamePanel gp, Player player)
     {
         try {
-            this.UIfont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\Valorax.otf")).deriveFont(12f);
+            this.UIfont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\Valorax.otf")).deriveFont(17f);
         } catch (FontFormatException ex) {
         } catch (IOException ex) {
         }
@@ -45,6 +46,13 @@ public class UIGame {
         this.player = player;
         MsgFont = new Font("Arial", MsgFont.PLAIN, 15);
         UIObject[0] = new BTN_1();
+        UIObject[1] = new BTN_2();
+        UIObject[2] = new BTN_3();
+        UIObject[3] = new BTN_1_Pressed();
+        UIObject[4] = new BTN_2_Pressed();
+        UIObject[5] = new BTN_3_Pressed();
+        UIObject[6] = new weaponBackground();
+        UIObject[7] = new ammo_icon();
     }
     
     public void showMessage(String text, int x, int y)
@@ -58,12 +66,41 @@ public class UIGame {
     {
         g2.setFont(UIfont);
         g2.setColor(Color.white);
-        g2.drawString("Assault Rifle", 25, 50);
+        int WBX = UIObject[6].area.x;
+        int WBY = UIObject[6].area.y;
+        g2.drawImage(UIObject[6].image, WBX, WBY, UIObject[6].area.width,UIObject[6].area.height,null);
         int equippedWeapon = player.equippedWeapon;
         if (player.weaponStorage[equippedWeapon] != null)
         {
             Image image = player.weaponStorage[equippedWeapon].image;
-            g2.drawImage(image, 10, 10,96,32,null);
+            g2.drawString(player.weaponStorage[equippedWeapon].name, WBX+25, WBY+36);
+            g2.drawImage(image, WBX+35, WBY+40,144,48,null);
+            g2.drawImage(UIObject[7].image, WBX+40, WBY+85,35,35,null);
+            
+            int MaxAmmoPerClip = player.weaponStorage[equippedWeapon].MaxAmmoPerClip;
+            int AmmoinClipRemaining = player.weaponStorage[equippedWeapon].AmmoinClipRemaining;
+            int AmmoRemaining = player.weaponStorage[equippedWeapon].AmmoRemaining;
+            String AmmoDisplay = ""+AmmoinClipRemaining+"/"+MaxAmmoPerClip+" "+AmmoRemaining;
+            
+            g2.drawString(AmmoDisplay, WBX+75, WBY+111);
+        }
+        if (equippedWeapon == 0)
+        {
+            g2.drawImage(UIObject[3].image, WBX+202, WBY+90, UIObject[3].area.width, UIObject[3].area.height, null);
+            g2.drawImage(UIObject[1].image, WBX+235, WBY+90, UIObject[1].area.width, UIObject[1].area.height, null);
+            g2.drawImage(UIObject[2].image, WBX+232, WBY+55, UIObject[2].area.width, UIObject[2].area.height, null);
+        }
+        else if (equippedWeapon == 1)
+        {
+            g2.drawImage(UIObject[0].image, WBX+202, WBY+90, UIObject[0].area.width, UIObject[0].area.height, null);
+            g2.drawImage(UIObject[4].image, WBX+235, WBY+90, UIObject[4].area.width, UIObject[4].area.height, null);
+            g2.drawImage(UIObject[2].image, WBX+232, WBY+55, UIObject[2].area.width, UIObject[2].area.height, null);
+        }
+        else if (equippedWeapon == 2)
+        {
+            g2.drawImage(UIObject[0].image, WBX+202, WBY+90, UIObject[0].area.width, UIObject[0].area.height, null);
+            g2.drawImage(UIObject[1].image, WBX+235, WBY+90, UIObject[1].area.width, UIObject[1].area.height, null);
+            g2.drawImage(UIObject[5].image, WBX+232, WBY+55, UIObject[5].area.width, UIObject[5].area.height, null);
         }
         
         if (messageOn == true)

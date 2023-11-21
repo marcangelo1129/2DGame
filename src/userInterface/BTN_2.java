@@ -5,6 +5,7 @@
 package userInterface;
 
 import java.awt.Rectangle;
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -16,10 +17,10 @@ public class BTN_2 extends UIObject {
     public BTN_2()
     {
         name = "BTN2";
-        area = new Rectangle(35,20,30, 30);
+        area = new Rectangle(15,20,30, 30);
         try
         {
-            image = ImageIO.read(getClass().getResourceAsStream("/UI/GameUI/BTN_2.png"));
+            image = ImageIO.read(new File("Sprites/userInterface/GameUI/BTN_2.png"));
         }catch(IOException ex) {ex.printStackTrace();}
     }
 }
