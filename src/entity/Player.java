@@ -189,5 +189,6 @@ public class Player extends Entity {
                 break;
         }
         g2.drawImage(image,screenX ,screenY ,gamepanel.tileSize, gamepanel.tileSize, null);
+        g2.
     }
 }
