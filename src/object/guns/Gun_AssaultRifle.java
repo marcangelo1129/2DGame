@@ -26,9 +26,14 @@ public class Gun_AssaultRifle extends WeaponObject {
         centerY = 18;
         weaponWidth = 84;
         weaponHeight = 28;
+        weaponWidthUI = 144;
+        weaponHeightUI = 48;
+        
         try
         {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/guns/Gun_assault_rifle.png"));
+            image = uTool.scaleImage(image, weaponWidth, weaponHeight);
+            UIimage = uTool.scaleImage(image, weaponWidthUI, weaponHeightUI);
         }catch(IOException ex) {ex.printStackTrace();}
     }
 }

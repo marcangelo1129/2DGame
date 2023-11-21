@@ -6,6 +6,7 @@ package object;
 
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import main.GamePanel;
 
 /**
  *
@@ -13,12 +14,15 @@ import javax.imageio.ImageIO;
  */
 public class OBJ_AssaultRifle extends SuperObject {
     
-    public OBJ_AssaultRifle()
+    GamePanel gp;
+    
+    public OBJ_AssaultRifle(GamePanel gp)
     {
         name = "AssaultRifle";
         try
         {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/assault_rifle.png"));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         }catch(IOException ex) {ex.printStackTrace();}
     }
 }

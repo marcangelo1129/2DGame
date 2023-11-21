@@ -68,14 +68,15 @@ public class UIGame {
         g2.setColor(Color.white);
         int WBX = UIObject[6].area.x;
         int WBY = UIObject[6].area.y;
-        g2.drawImage(UIObject[6].image, WBX, WBY, UIObject[6].area.width,UIObject[6].area.height,null);
+        g2.drawImage(UIObject[6].image, WBX, WBY,null);
         int equippedWeapon = player.equippedWeapon;
         if (player.weaponStorage[equippedWeapon] != null)
         {
             Image image = player.weaponStorage[equippedWeapon].image;
+            Image UIimage = player.weaponStorage[equippedWeapon].UIimage;
             g2.drawString(player.weaponStorage[equippedWeapon].name, WBX+25, WBY+36);
-            g2.drawImage(image, WBX+35, WBY+40,144,48,null);
-            g2.drawImage(UIObject[7].image, WBX+40, WBY+85,35,35,null);
+            g2.drawImage(UIimage, WBX+35, WBY+40,null);
+            g2.drawImage(UIObject[7].image, WBX+40, WBY+85,null);
             
             int MaxAmmoPerClip = player.weaponStorage[equippedWeapon].MaxAmmoPerClip;
             int AmmoinClipRemaining = player.weaponStorage[equippedWeapon].AmmoinClipRemaining;
@@ -86,21 +87,21 @@ public class UIGame {
         }
         if (equippedWeapon == 0)
         {
-            g2.drawImage(UIObject[3].image, WBX+202, WBY+90, UIObject[3].area.width, UIObject[3].area.height, null);
-            g2.drawImage(UIObject[1].image, WBX+235, WBY+90, UIObject[1].area.width, UIObject[1].area.height, null);
-            g2.drawImage(UIObject[2].image, WBX+232, WBY+55, UIObject[2].area.width, UIObject[2].area.height, null);
+            g2.drawImage(UIObject[3].image, WBX+202, WBY+90, null);
+            g2.drawImage(UIObject[1].image, WBX+235, WBY+90, null);
+            g2.drawImage(UIObject[2].image, WBX+232, WBY+55, null);
         }
         else if (equippedWeapon == 1)
         {
-            g2.drawImage(UIObject[0].image, WBX+202, WBY+90, UIObject[0].area.width, UIObject[0].area.height, null);
-            g2.drawImage(UIObject[4].image, WBX+235, WBY+90, UIObject[4].area.width, UIObject[4].area.height, null);
-            g2.drawImage(UIObject[2].image, WBX+232, WBY+55, UIObject[2].area.width, UIObject[2].area.height, null);
+            g2.drawImage(UIObject[0].image, WBX+202, WBY+90, null);
+            g2.drawImage(UIObject[4].image, WBX+235, WBY+90, null);
+            g2.drawImage(UIObject[2].image, WBX+232, WBY+55, null);
         }
         else if (equippedWeapon == 2)
         {
-            g2.drawImage(UIObject[0].image, WBX+202, WBY+90, UIObject[0].area.width, UIObject[0].area.height, null);
-            g2.drawImage(UIObject[1].image, WBX+235, WBY+90, UIObject[1].area.width, UIObject[1].area.height, null);
-            g2.drawImage(UIObject[5].image, WBX+232, WBY+55, UIObject[5].area.width, UIObject[5].area.height, null);
+            g2.drawImage(UIObject[0].image, WBX+202, WBY+90, null);
+            g2.drawImage(UIObject[1].image, WBX+235, WBY+90, null);
+            g2.drawImage(UIObject[5].image, WBX+232, WBY+55, null);
         }
         
         if (messageOn == true)

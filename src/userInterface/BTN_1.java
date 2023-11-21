@@ -21,6 +21,7 @@ public class BTN_1 extends UIObject {
         try
         {
             image = ImageIO.read(new File("Sprites/userInterface/GameUI/BTN_1.png"));
+            image = uTool.scaleImage(image, area.width, area.height);
         }catch(IOException ex) {ex.printStackTrace();}
     }
 }

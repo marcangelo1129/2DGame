@@ -6,6 +6,7 @@ package userInterface;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import main.UtilityTool;
 
 /**
  *
@@ -15,4 +16,5 @@ public class UIObject {
     public BufferedImage image;
     public String name;
     public Rectangle area;
+    UtilityTool uTool = new UtilityTool();
 }

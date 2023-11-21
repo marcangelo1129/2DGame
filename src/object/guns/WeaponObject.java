@@ -5,6 +5,7 @@
 package object.guns;
 
 import java.awt.image.BufferedImage;
+import main.UtilityTool;
 
 /**
  *
@@ -12,6 +13,7 @@ import java.awt.image.BufferedImage;
  */
 public class WeaponObject {
     public BufferedImage image;
+    public BufferedImage UIimage;
     public String name;
     public int worldX, worldY;
     public int MaxAmmoPerClip;
@@ -24,5 +26,7 @@ public class WeaponObject {
     public int centerY;
     public int weaponWidth;
     public int weaponHeight;
-    
+    public int weaponWidthUI;
+    public int weaponHeightUI;
+    UtilityTool uTool = new UtilityTool();
 }

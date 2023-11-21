@@ -21,11 +21,11 @@ public class AssetSetter {
     
     public void setObject()
     {
-        gp.obj[0] = new OBJ_AmmoBox();
+        gp.obj[0] = new OBJ_AmmoBox(gp);
         gp.obj[0].worldX = 23 * gp.tileSize;
         gp.obj[0].worldY = 18 * gp.tileSize;
         
-        gp.obj[1] = new OBJ_AssaultRifle();
+        gp.obj[1] = new OBJ_AssaultRifle(gp);
         gp.obj[1].worldX = 25 * gp.tileSize;
         gp.obj[1].worldY = 18 * gp.tileSize;
         

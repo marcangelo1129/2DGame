@@ -13,3 +13,6 @@
 
 (Marc) Version 0.0.11   --->  + Added GUI for weapons
                               + Added weapon switching
+
+(Marc) Version 0.0.12   --->  = Reconstructed all functions that handles graphics so that the Graphics2D
+                                renders sprites efficiently (The codes look less intimidating now)

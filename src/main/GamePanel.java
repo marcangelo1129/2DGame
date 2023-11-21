@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ import tile.TileManager;
 public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16;
     final int tileScaling = 3;
+    
     
     public final int tileSize = originalTileSize * tileScaling;
     public final int maxScreenCol = 16;
@@ -118,6 +120,9 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         
         Graphics2D g2 = (Graphics2D)g;
+        
+        long drawStart = 0;
+        drawStart = System.nanoTime();
         tileM.draw(g2);
         for (int i = 0; i < obj.length; i++)
         {
@@ -127,9 +132,13 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         
+        
         player.draw(g2);
         ui.draw(g2);
         player.drawWeapon(g2);
+        long drawEnd = System.nanoTime();
+        long passed = drawEnd - drawStart;
+        System.out.println(passed);
         g2.dispose();
     }
     public void playMusic(int i)
