@@ -1,1 +1,12 @@
-(Marc) Version 0.0.6 Collision Fixed, Added diagonal move
+(Marc) Version 0.0.6   --->   = Collision Fixed
+                              + Added diagonal movement
+
+(Marc) Version 0.0.7   --->   = Bug fixed where player character can get stuck on corner of obstacles
+                              + Added map objects (no functions)
+
+(Marc) Version 0.0.8   --->   + added objects - Assault Rifle
+                                              - Ammo Box (no function)
+                              + Added aiming system
+
+(Marc) Version 0.0.10   --->  = Fixed visual bug where weapon doesn't align with cursor in certain angles
+                              + Added crosshair cursor

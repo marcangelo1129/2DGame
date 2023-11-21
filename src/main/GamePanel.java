@@ -8,9 +8,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import object.SuperObject;
+import object.guns.WeaponObject;
 import tile.TileManager;
 
 /**
@@ -30,15 +33,21 @@ public class GamePanel extends JPanel implements Runnable {
     //WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int maxWorldWidth = tileSize * maxWorldCol;
-    public final int maxWorldHeight = tileSize * maxWorldRow;
     
-    
+    //SYSTEM
     TileManager tileM = new TileManager(this);
     KeyHandler KeyHandler = new KeyHandler();
-    Thread gameThread;
+    Sound sound = new Sound();
+    Main main = new Main();
+   
     public CollisionChecker cChecker = new CollisionChecker(this);
-    public Player player = new Player(this, KeyHandler);
+    public AssetSetter aSetter = new AssetSetter(this);
+     Thread gameThread;
+    //ENTITY & OBJECT
+    public Player player = new Player(this, KeyHandler, main);
+    public UI ui = new UI(this, player);
+    public SuperObject obj[] = new SuperObject[10];
+    public WeaponObject wbj[] = new WeaponObject[4];
     
     int FPS = 60; //game's speed
     
@@ -51,6 +60,16 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(KeyHandler);
         this.setFocusable(true);
+    }
+    
+    public void setupGame() throws IOException
+    {
+        aSetter.setObject();
+        main.setCursor();
+        playMusic(0);
+        
+        //component.setCursor( null ); - To reset the cursor you use
+        
     }
     
     public void startGameThread()//starts a method in a new thread (games always uses multiple threads to avoid lag)
@@ -99,9 +118,34 @@ public class GamePanel extends JPanel implements Runnable {
         
         Graphics2D g2 = (Graphics2D)g;
         tileM.draw(g2);
-        player.draw(g2);
+        for (int i = 0; i < obj.length; i++)
+        {
+            if (obj[i] != null)
+            {
+                obj[i].draw(g2, this);
+            }
+        }
         
+        player.draw(g2);
+        ui.draw(g2);
+        player.drawWeapon(g2);
         g2.dispose();
     }
-    
+    public void playMusic(int i)
+    {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+            
+        
+    }
+    public void stopMusic()
+    {
+        sound.stop();
+    }
+    public void playSE(int i)
+    {
+        sound.setFile(i);
+        sound.play();
+    }
 }

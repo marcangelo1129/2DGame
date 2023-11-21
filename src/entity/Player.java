@@ -5,12 +5,18 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
+import main.Main;
+import object.guns.Gun_AssaultRifle;
+import object.guns.WeaponObject;
 
 /**
  *
@@ -19,16 +25,23 @@ import main.KeyHandler;
 public class Player extends Entity {
     GamePanel gamepanel;
     KeyHandler KeyHandler;
+    Main Main;
     
     public final int screenX;
     public final int screenY;
     
-    public Player (GamePanel gamepanel, KeyHandler KeyHandler)
+    public WeaponObject[] weaponStorage = new WeaponObject[4];
+    public int equippedWeapon = 0;
+    
+    public Player (GamePanel gamepanel, KeyHandler KeyHandler, Main Main)
     {
         this.gamepanel = gamepanel;
         this.KeyHandler = KeyHandler;
+        this.Main = Main;
         
         solidArea = new Rectangle(8, 16, 32, 32);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         
         screenX = gamepanel.screenWidth/2 - (gamepanel.tileSize/2);
         screenY = gamepanel.screenHeight/2 - (gamepanel.tileSize/2);
@@ -96,6 +109,10 @@ public class Player extends Entity {
             collisionSide1 = false;
             collisionSide2 = false;
             gamepanel.cChecker.checkTile(this);
+            
+            int objIndex = gamepanel.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
+            
             if (collisionOn == false)
             {
                 switch(direction){
@@ -114,32 +131,41 @@ public class Player extends Entity {
                         break;
                 }
             }
-            switch(direction){
-                case "upLeft":
-                    if (collisionSide1 == false)
+            if (collisionSide1 == false)
+            {
+                switch(direction){
+                    case "upLeft":
                         worldY -= speed;
-                    if (collisionSide2 == false)
-                        worldX -= speed;
-                    break;
-                case "downLeft":
-                    if (collisionSide1 == false)
+                        break;
+                    case "downLeft":
                         worldY += speed;
-                    if (collisionSide2 == false)
-                        worldX -= speed;
-                    break;
-                case "downRight":
-                    if (collisionSide1 == false)
+                        break;
+                    case "downRight":
                         worldY += speed;
-                    if (collisionSide2 == false)
-                        worldX += speed;
-                    break;
-                case "upRight":
-                    if (collisionSide1 == false)
+                        break;
+                    case "upRight":
                         worldY -= speed;
-                    if (collisionSide2 == false)
-                        worldX += speed;
-                    break;
+                        break;
                 }
+            }
+            gamepanel.cChecker.checkTile(this);
+            if (collisionSide2 == false)
+            {
+                switch(direction){
+                    case "upLeft":
+                        worldX -= speed;
+                        break;
+                    case "downLeft":
+                        worldX -= speed;
+                        break;
+                    case "downRight":
+                        worldX += speed;
+                        break;
+                    case "upRight":
+                        worldX += speed;
+                        break;
+                }
+            
             }
             
 
@@ -152,8 +178,27 @@ public class Player extends Entity {
                     spriteNum = 1;
                 spriteCounter = 0;
             }
-        
+        }
     }
+    public void pickUpObject(int i)
+    {
+        if (i != 999)
+        {
+            String objectName = gamepanel.obj[i].name;
+            
+            switch (objectName)
+            {
+                case "AmmoBox":
+                    break;
+                case "AssaultRifle":
+                    weaponStorage[0] = new Gun_AssaultRifle();
+                    gamepanel.ui.showMessage("Assault Rifle Equipped", screenX-43, screenY);
+                    break;
+            }
+            gamepanel.obj[i] = null;
+        }
+    }
+    
     public void draw(Graphics2D g2 )
     {
         BufferedImage image = null;
@@ -189,6 +234,44 @@ public class Player extends Entity {
                 break;
         }
         g2.drawImage(image,screenX ,screenY ,gamepanel.tileSize, gamepanel.tileSize, null);
-        g2.
     }
+    public void drawWeapon(Graphics2D g2)
+    {   
+        Point Mouse = Main.getMouseCoordinates();
+        Point Character = new Point(screenX+32,screenY+55);
+        double Angle = getAngle(Character, Mouse) - 90;
+        BufferedImage image = null;
+        if (weaponStorage[equippedWeapon] != null)
+            {
+                image = weaponStorage[equippedWeapon].image;
+                int weaponCenterX = screenX - weaponStorage[equippedWeapon].centerX;
+                int weaponCenterY = screenY + weaponStorage[equippedWeapon].centerY;
+                if (Angle >= -90 && Angle < 90)
+                {
+                    g2.rotate(Math.toRadians(Angle), screenX+24, screenY+25);
+                    g2.drawImage(image, weaponCenterX ,weaponCenterY ,weaponStorage[equippedWeapon].weaponWidth, weaponStorage[equippedWeapon].weaponHeight, null);
+                }
+                else
+                {
+                    AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
+                    tx.translate(0, -image.getHeight(null));
+                    AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+                    image = op.filter(image, null);
+                    g2.translate(0,-13);
+                    g2.rotate(Math.toRadians(Angle), screenX+24, screenY+38);
+                    g2.drawImage(image, weaponCenterX ,weaponCenterY ,weaponStorage[equippedWeapon].weaponWidth, weaponStorage[equippedWeapon].weaponHeight, null);
+                }
+            }
+    }
+    
+    public static double getAngle(Point centerPt, Point targetPt)
+{
+    double theta = Math.atan2(targetPt.y - centerPt.y, targetPt.x - centerPt.x);
+    theta += Math.PI/2.0;
+    double angle = Math.toDegrees(theta);
+    if (angle < 0) {
+        angle += 360;
+    }
+    return angle;
+}
 }
