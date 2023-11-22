@@ -7,6 +7,8 @@ package tile;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,13 +32,14 @@ public class TileManager {
         mapTileNum = new int [gp.maxWorldCol][gp.maxWorldRow];
         
         getTileImage();
-        loadMap("/maps/map2.txt");
+        loadMap("/maps/map2.txt", false);
     }
     public void getTileImage()
     {
         setup(0, "grass", false);
         setup(1, "stone", true);
         setup(2, "water", true);
+        setup(3, "road", false);
     }
     public void setup(int index, String imageName, boolean collision)
     {
@@ -51,11 +54,21 @@ public class TileManager {
             
         }catch(IOException ex){ex.printStackTrace();}
     }
-        public void loadMap(String filepath)
+        public void loadMap(String filepath, boolean debugMode)
         {
+            InputStream is;
             try
             {
-                InputStream is = getClass().getResourceAsStream(filepath);
+                if (debugMode)
+                {
+                    is = new FileInputStream(filepath);
+                }
+                else
+                {
+                    is = getClass().getResourceAsStream(filepath);
+                }
+                
+                
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 
                 int col = 0;

@@ -20,7 +20,7 @@ public class weaponBackground extends UIObject {
         area = new Rectangle(10,422,288, 144);
         try
         {
-            image = ImageIO.read(new File("Sprites/userInterface/GameUI/weaponBackground.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/userInterface/GameUI/weaponBackground.png"));
             image = uTool.scaleImage(image, area.width, area.height);
         }catch(IOException ex) {ex.printStackTrace();}
     }

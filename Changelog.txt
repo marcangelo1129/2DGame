@@ -16,3 +16,7 @@
 
 (Marc) Version 0.0.12   --->  = Reconstructed all functions that handles graphics so that the Graphics2D
                                 renders sprites efficiently (The codes look less intimidating now)
+
+(Marc) Version 0.0.12a   ---> + Added Debug window (For developers only)
+                              = Bug fixed where the package Sprites, Sound and Fonts doesn't get included
+                                when building project

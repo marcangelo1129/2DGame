@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
  */
 package main;
+import Debug.DebugWindow;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.MouseInfo;
@@ -22,10 +23,10 @@ public class Main {
     static JFrame window = new JFrame();
     
     public static void main(String args[]) throws IOException {
-        
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("2D Game");
+        
         
         GamePanel gamepanel = new GamePanel();
         window.add(gamepanel);
@@ -36,8 +37,13 @@ public class Main {
         window.setVisible(true);
         
         gamepanel.setupGame();
-        
+        gamepanel.ShowDebug();
         gamepanel.startGameThread();
+    }
+    
+    public void ShowDebug ()
+    {
+        
     }
     
     public Point getMouseCoordinates()
@@ -45,6 +51,7 @@ public class Main {
         PointerInfo a = MouseInfo.getPointerInfo();
 	Point point = new Point(a.getLocation());
 	SwingUtilities.convertPointFromScreen(point, window);
+        
         return point;
     }
     

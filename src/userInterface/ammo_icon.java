@@ -20,7 +20,7 @@ public class ammo_icon extends UIObject {
         area = new Rectangle(15,20,30, 30);
         try
         {
-            image = ImageIO.read(new File("Sprites/userInterface/GameUI/ammo_icon.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/userInterface/GameUI/ammo_icon.png"));
             image = uTool.scaleImage(image, area.width, area.height);
         }catch(IOException ex) {ex.printStackTrace();}
     }

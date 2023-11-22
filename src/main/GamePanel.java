@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
  */
 package main;
+import Debug.DebugWindow;
 import userInterface.UIGame;
 import entity.Player;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,10 +38,11 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldRow = 50;
     
     //SYSTEM
-    TileManager tileM = new TileManager(this);
+    public TileManager tileM = new TileManager(this);
     KeyHandler KeyHandler = new KeyHandler();
     Sound sound = new Sound();
     Main main = new Main();
+    DebugWindow dw = new DebugWindow(this);
    
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
@@ -63,6 +64,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(KeyHandler);
         this.setFocusable(true);
+        
+    }
+    
+    public void ShowDebug()
+    {
+        dw.show();
     }
     
     public void setupGame() throws IOException
@@ -80,7 +87,7 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
-
+    int spriteCounter = 0;
     @Override
     public void run()//Game engine-like method. this method runs 60 times per second.
     {
@@ -106,6 +113,14 @@ public class GamePanel extends JPanel implements Runnable {
             {
                 Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            spriteCounter++;
+            if (spriteCounter > 15)
+            {
+                spriteCounter = 0;
+                dw.jLabel2.setText("X: "+(player.worldX + tileSize) / tileSize+"  Y: "+(player.worldY + tileSize) / tileSize);
+            }
+            
             nextDrawTime += drawInterval;//the purpose of nextDrawTime is to avoid lag. drawInterval (16 msec) - (total time taken by update and repaint method)
         }//                              so if those methods processed things slower than normal, there would be no pause needed
     }
@@ -138,7 +153,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.drawWeapon(g2);
         long drawEnd = System.nanoTime();
         long passed = drawEnd - drawStart;
-        System.out.println(passed);
+        //System.out.println(passed);
         g2.dispose();
     }
     public void playMusic(int i)

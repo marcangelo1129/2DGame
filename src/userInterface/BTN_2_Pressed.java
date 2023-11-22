@@ -20,7 +20,7 @@ public class BTN_2_Pressed extends UIObject {
         area = new Rectangle(15,20,30, 30);
         try
         {
-            image = ImageIO.read(new File("Sprites/userInterface/GameUI//BTN_2_Pressed.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/userInterface/GameUI/BTN_2_Pressed.png"));
             image = uTool.scaleImage(image, area.width, area.height);
         }catch(IOException ex) {ex.printStackTrace();}
     }

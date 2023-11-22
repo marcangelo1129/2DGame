@@ -12,7 +12,6 @@ import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +37,7 @@ public class UIGame {
     public UIGame(GamePanel gp, Player player)
     {
         try {
-            this.UIfont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\Valorax.otf")).deriveFont(17f);
+            this.UIfont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/Valorax.otf")).deriveFont(17f);
         } catch (FontFormatException ex) {
         } catch (IOException ex) {
         }
