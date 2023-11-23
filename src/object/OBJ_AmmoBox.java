@@ -4,6 +4,7 @@
  */
 package object;
 
+import java.awt.Rectangle;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import main.GamePanel;
@@ -18,6 +19,7 @@ public class OBJ_AmmoBox extends SuperObject {
     
     public OBJ_AmmoBox(GamePanel gp)
     {
+        solidArea = new Rectangle(0,0,48,48);
         name = "AmmoBox";
         try
         {

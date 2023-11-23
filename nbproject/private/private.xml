@@ -3,31 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/GamePanel.java</file>
             <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/OBJ_AmmoBox.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/ammo_icon.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/BTN_3.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/UtilityTool.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/GamePanel.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/SuperObject.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/decoration/bigTree.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/decoration/decorationPlacement.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/tile/TileManager.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/Main.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/CollisionChecker.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/Sprites/maps/map2.txt</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/entity/Player.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/tile/Tile.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/BTN_1.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/AssetSetter.java</file>
             <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/guns/Gun_AssaultRifle.java</file>
             <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/UIGame.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/KeyHandler.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/guns/WeaponObject.java</file>
             <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/OBJ_AssaultRifle.java</file>
             <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/entity/Entity.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/Changelog.txt</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/SuperObject.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/UIObject.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/Main.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/tile/TileManager.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/BTN_2.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/BTN_1_Pressed.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/BTN_2_Pressed.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/weaponBackground.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/BTN_3_Pressed.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/BTN_1.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/tile/Tile.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/entity/Player.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/AssetSetter.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/guns/WeaponObject.java</file>
             <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/Debug/DebugWindow.java</file>
         </group>
     </open-files>

@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import object.SuperObject;
+import object.decoration.decorationPlacement;
 import object.guns.WeaponObject;
 import tile.TileManager;
 
@@ -42,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler KeyHandler = new KeyHandler();
     Sound sound = new Sound();
     Main main = new Main();
-    DebugWindow dw = new DebugWindow(this);
+    public DebugWindow dw = new DebugWindow(this);
    
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
@@ -51,7 +52,9 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, KeyHandler, main);
     public UIGame ui = new UIGame(this, player);
     public SuperObject obj[] = new SuperObject[10];
+    public SuperObject objDeco[] = new SuperObject[10];
     public WeaponObject wbj[] = new WeaponObject[4];
+    public decorationPlacement deco = new decorationPlacement(this);
     
     int FPS = 60; //game's speed
     
@@ -75,6 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() throws IOException
     {
         aSetter.setObject();
+        deco.setDecoration();
         main.setCursor();
         playMusic(0);
         
@@ -146,11 +150,27 @@ public class GamePanel extends JPanel implements Runnable {
                 obj[i].draw(g2, this);
             }
         }
-        
+        for (int i = 0; i < objDeco.length; i++)
+        {
+            if (objDeco[i] != null)
+            {
+                objDeco[i].draw(g2, this);
+            }
+        }
         
         player.draw(g2);
-        ui.draw(g2);
         player.drawWeapon(g2);
+        for (int i = 0; i < objDeco.length; i++)
+        {
+            if (objDeco[i] != null)
+            {
+                objDeco[i].drawDecorationTop(g2, this);
+            }
+        }
+        
+        
+        ui.draw(g2);
+        
         long drawEnd = System.nanoTime();
         long passed = drawEnd - drawStart;
         //System.out.println(passed);

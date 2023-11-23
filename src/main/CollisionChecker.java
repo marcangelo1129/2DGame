@@ -21,6 +21,8 @@ public class CollisionChecker {
     
     public void checkTile(Entity entity)
     {
+        if (gp.dw.jCheckBox1.isSelected())
+            return;
         int entityLeftX = entity.worldX + entity.solidArea.x;
         int entityRightX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopY = entity.worldY + entity.solidArea.y;
@@ -184,5 +186,91 @@ public class CollisionChecker {
         }
         
         return index;
+    }
+    
+    public void checkDecoCollision (Entity entity)
+    {
+        if (gp.dw.jCheckBox1.isSelected())
+            return;
+        for (int i = 0; i < gp.objDeco.length; i++)
+        {
+            if (gp.objDeco[i] != null)
+            {
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                
+                gp.objDeco[i].solidArea.x = gp.objDeco[i].worldX + gp.objDeco[i].solidArea.x;
+                gp.objDeco[i].solidArea.y = gp.objDeco[i].worldY + gp.objDeco[i].solidArea.y;
+                
+                switch (entity.direction)
+                {
+                    case"up":
+                        entity.solidArea.y -= entity.speed;
+                        break;
+                    case"down":
+                        entity.solidArea.y += entity.speed;
+                        break;
+                    case"left":
+                        entity.solidArea.x -= entity.speed;
+                        break;
+                    case"right":
+                        entity.solidArea.x += entity.speed;
+                        break;
+                }
+                if (entity.solidArea.intersects(gp.objDeco[i].solidArea))
+                {
+                    if (gp.objDeco[i].collision = true)
+                        entity.collisionOn = true;
+                }
+                switch (entity.direction)
+                {
+                    case "upLeft":
+                        entity.solidArea.y -= entity.speed;
+                        break;
+                    case "downLeft":
+                        entity.solidArea.y += entity.speed;
+                        break;
+                    case "downRight":
+                        entity.solidArea.y += entity.speed;
+                        break;
+                    case "upRight":
+                        entity.solidArea.y -= entity.speed;
+                        break;
+                }
+                if (entity.solidArea.intersects(gp.objDeco[i].solidArea))
+                {
+                    if (gp.objDeco[i].collision = true)
+                        entity.collisionSide1 = true;
+                }
+                else
+                {
+                    switch(entity.direction){
+                    case "upLeft":
+                        entity.solidArea.x -= entity.speed;
+                        break;
+                    case "downLeft":
+                        entity.solidArea.x -= entity.speed;
+                        break;
+                    case "downRight":
+                        entity.solidArea.x += entity.speed;
+                        break;
+                    case "upRight":
+                        entity.solidArea.x += entity.speed;
+                        break;
+                }
+                if (entity.solidArea.intersects(gp.objDeco[i].solidArea))
+                {
+                    if (gp.objDeco[i].collision = true)
+                        entity.collisionSide2 = true;
+                }
+                }
+                
+                
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                gp.objDeco[i].solidArea.x = gp.objDeco[i].solidAreaDefaultX;
+                gp.objDeco[i].solidArea.y = gp.objDeco[i].solidAreaDefaultY;
+            }
+        }
     }
 }

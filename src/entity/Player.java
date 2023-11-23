@@ -22,19 +22,20 @@ import main.UtilityTool;
  * @author Dangerouze
  */
 public class Player extends Entity {
-    GamePanel gamepanel;
+    GamePanel gp;
     KeyHandler KeyHandler;
     Main Main;
     
     public final int screenX;
     public final int screenY;
+    String mDirection;
     
     public object.guns.WeaponObject[] weaponStorage = new object.guns.WeaponObject[4];
     public int equippedWeapon = 0;
     
     public Player (GamePanel gamepanel, KeyHandler KeyHandler, Main Main)
     {
-        this.gamepanel = gamepanel;
+        this.gp = gamepanel;
         this.KeyHandler = KeyHandler;
         this.Main = Main;
         
@@ -50,8 +51,8 @@ public class Player extends Entity {
     }
     public void setDefaultValues()
     {
-        worldX = gamepanel.tileSize * 23;
-        worldY = gamepanel.tileSize * 20;
+        worldX = gp.tileSize * 23;
+        worldY = gp.tileSize * 20;
         speed = 4;
         direction = "down";
     }
@@ -73,7 +74,7 @@ public class Player extends Entity {
         try
         {
             image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-            image = uTool.scaleImage(image, gamepanel.tileSize, gamepanel.tileSize);
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         }catch (IOException e){e.printStackTrace();}
         return image;
     }
@@ -131,10 +132,11 @@ public class Player extends Entity {
             collisionOn = false;
             collisionSide1 = false;
             collisionSide2 = false;
-            gamepanel.cChecker.checkTile(this);
+            gp.cChecker.checkTile(this);
             
-            int objIndex = gamepanel.cChecker.checkObject(this, true);
+            int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
+            gp.cChecker.checkDecoCollision(this);
             
             if (collisionOn == false)
             {
@@ -171,7 +173,8 @@ public class Player extends Entity {
                         break;
                 }
             }
-            gamepanel.cChecker.checkTile(this);
+            gp.cChecker.checkDecoCollision(this);
+            gp.cChecker.checkTile(this);
             if (collisionSide2 == false)
             {
                 switch(direction){
@@ -207,7 +210,7 @@ public class Player extends Entity {
     {
         if (i != 999)
         {
-            String objectName = gamepanel.obj[i].name;
+            String objectName = gp.obj[i].name;
             
             switch (objectName)
             {
@@ -215,46 +218,29 @@ public class Player extends Entity {
                     break;
                 case "AssaultRifle":
                     weaponStorage[0] = new object.guns.Gun_AssaultRifle();
-                    gamepanel.ui.showMessage("Assault Rifle Equipped", screenX-43, screenY);
+                    gp.ui.showMessage("Assault Rifle Equipped", screenX-43, screenY);
                     break;
             }
-            gamepanel.obj[i] = null;
+            gp.obj[i] = null;
         }
     }
     
     public void draw(Graphics2D g2 )
     {
         BufferedImage image = null;
-        switch(direction)
+        if (mDirection == "left")
         {
-            case "up":
-                if (spriteNum == 1)
-                    image = up1;
-                if (spriteNum == 2)
-                    image = up2;
-                break;
-            case "down":
-                if (spriteNum == 1)
-                    image = down1;
-                if (spriteNum == 2)
-                    image = down2;    
-                break;
-            case "left":
-            case "downLeft":
-            case "upLeft":
-                if (spriteNum == 1)
-                    image = left1;
-                if (spriteNum == 2)
-                    image = left2;
-                break;
-            case "right":
-            case "downRight":
-            case "upRight":
-                if (spriteNum == 1)
-                    image = right1;
-                if (spriteNum == 2)
-                    image = right2;
-                break;
+            if (spriteNum == 1)
+                image = left1;
+            if (spriteNum == 2)
+                image = left2;
+        }
+        else
+        {
+            if (spriteNum == 1)
+                image = right1;
+            if (spriteNum == 2)
+                image = right2;
         }
         g2.drawImage(image,screenX ,screenY , null);
     }
@@ -263,6 +249,12 @@ public class Player extends Entity {
         Point Mouse = Main.getMouseCoordinates();
         Point Character = new Point(screenX+32,screenY+55);
         double Angle = getAngle(Character, Mouse) - 90;
+        
+        if (Angle >= -90 && Angle < 90)
+            mDirection = "right";
+        else
+            mDirection = "left";
+        
         BufferedImage image = null;
         if (weaponStorage[equippedWeapon] != null)
             {
@@ -273,6 +265,7 @@ public class Player extends Entity {
                 {
                     g2.rotate(Math.toRadians(Angle), screenX+24, screenY+25);
                     g2.drawImage(image, weaponCenterX ,weaponCenterY ,weaponStorage[equippedWeapon].weaponWidth, weaponStorage[equippedWeapon].weaponHeight, null);
+                    g2.rotate(Math.toRadians(-Angle), screenX+24, screenY+25);
                 }
                 else
                 {
@@ -283,8 +276,11 @@ public class Player extends Entity {
                     g2.translate(0,-13);
                     g2.rotate(Math.toRadians(Angle), screenX+24, screenY+38);
                     g2.drawImage(image, weaponCenterX ,weaponCenterY ,weaponStorage[equippedWeapon].weaponWidth, weaponStorage[equippedWeapon].weaponHeight, null);
+                    g2.rotate(Math.toRadians(-Angle), screenX+24, screenY+38);
+                    g2.translate(0,13);
                 }
             }
+        
     }
     
     public static double getAngle(Point centerPt, Point targetPt)

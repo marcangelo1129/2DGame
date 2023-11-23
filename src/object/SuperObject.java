@@ -16,18 +16,29 @@ import main.UtilityTool;
  */
 public class SuperObject {
     public BufferedImage image;
+    public BufferedImage imageTop;
     public String name;
+    public String nameTop;
     public boolean collision = false;
     public int worldX, worldY;
-    public Rectangle solidArea = new Rectangle(0,0,48,48);
+    public Rectangle solidArea;
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
-    UtilityTool uTool = new UtilityTool();
+    public UtilityTool uTool = new UtilityTool();
     
     public void draw(Graphics2D g2, GamePanel gp)
     {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
         g2.drawImage(image,screenX ,screenY,null);
+        if (gp.dw.jCheckBox2.isSelected())
+            g2.drawRect(screenX, screenY, solidArea.width, solidArea.height);
+    }
+    
+    public void drawDecorationTop(Graphics2D g2,GamePanel gp)
+    {
+        int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        int screenY = (worldY - gp.player.worldY + gp.player.screenY) - (gp.tileSize * 2);
+        g2.drawImage(imageTop,screenX,screenY,null);
     }
 }
