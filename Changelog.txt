@@ -24,3 +24,6 @@
 (Marc) Version 0.0.13   --->  + Added more settings to Debug Window
                               + Added object-based decorations
                               = Character will now always face the mouse direction
+
+(Marc) Version 0.0.14   --->  + Added shooting system (no projectile, no ammo system)
+                              = Sprite of object Assault Rifle has changed and renamed to M4A1

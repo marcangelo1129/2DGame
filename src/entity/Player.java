@@ -11,11 +11,13 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
 import main.Main;
 import main.UtilityTool;
+import object.guns.muzzleFlash;
 
 /**
  *
@@ -31,6 +33,9 @@ public class Player extends Entity {
     String mDirection;
     
     public object.guns.WeaponObject[] weaponStorage = new object.guns.WeaponObject[4];
+    muzzleFlash muzzleFlash = new muzzleFlash();
+    Random random = new Random();
+    public BufferedImage weapon;
     public int equippedWeapon = 0;
     
     public Player (GamePanel gamepanel, KeyHandler KeyHandler, Main Main)
@@ -211,14 +216,14 @@ public class Player extends Entity {
         if (i != 999)
         {
             String objectName = gp.obj[i].name;
-            
+            System.out.print(objectName);
             switch (objectName)
             {
                 case "AmmoBox":
                     break;
-                case "AssaultRifle":
-                    weaponStorage[0] = new object.guns.Gun_AssaultRifle();
-                    gp.ui.showMessage("Assault Rifle Equipped", screenX-43, screenY);
+                case "M4A1":
+                    weaponStorage[0] = new object.guns.Gun_M4A1();
+                    gp.ui.showMessage("M4A1 Equipped", screenX-43, screenY);
                     break;
             }
             gp.obj[i] = null;
@@ -255,29 +260,41 @@ public class Player extends Entity {
         else
             mDirection = "left";
         
-        BufferedImage image = null;
         if (weaponStorage[equippedWeapon] != null)
             {
-                image = weaponStorage[equippedWeapon].image;
+                int flashRandomizer = random.nextInt(4 - 0) + 0;
+                weapon = weaponStorage[equippedWeapon].image;
                 int weaponCenterX = screenX - weaponStorage[equippedWeapon].centerX;
                 int weaponCenterY = screenY + weaponStorage[equippedWeapon].centerY;
                 if (Angle >= -90 && Angle < 90)
                 {
                     g2.rotate(Math.toRadians(Angle), screenX+24, screenY+25);
-                    g2.drawImage(image, weaponCenterX ,weaponCenterY ,weaponStorage[equippedWeapon].weaponWidth, weaponStorage[equippedWeapon].weaponHeight, null);
+                    //gp.gt.drawWeaponAnimation(g2, weaponCenterX, weaponCenterY);
+                    g2.drawImage(weapon, weaponCenterX ,weaponCenterY , null);
+                    if (gp.gt.muzzleFlashTime != 0)
+                    {
+                        g2.drawImage(muzzleFlash.sprites[flashRandomizer], screenX+muzzleFlash.centerX+weaponStorage[equippedWeapon].muzzleLoc.x, screenY+muzzleFlash.centerY+weaponStorage[equippedWeapon].muzzleLoc.y, gp);
+                        gp.gt.muzzleFlashTime--;
+                    }
                     g2.rotate(Math.toRadians(-Angle), screenX+24, screenY+25);
                 }
                 else
                 {
                     AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
-                    tx.translate(0, -image.getHeight(null));
+                    tx.translate(0, -weapon.getHeight(null));
                     AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-                    image = op.filter(image, null);
-                    g2.translate(0,-13);
+                    weapon = op.filter(weapon, null);
+                    g2.translate(0,-16);
                     g2.rotate(Math.toRadians(Angle), screenX+24, screenY+38);
-                    g2.drawImage(image, weaponCenterX ,weaponCenterY ,weaponStorage[equippedWeapon].weaponWidth, weaponStorage[equippedWeapon].weaponHeight, null);
+                    //gp.gt.drawWeaponAnimation(g2, weaponCenterX, weaponCenterY);
+                    g2.drawImage(weapon, weaponCenterX ,weaponCenterY , null);
+                    if (gp.gt.muzzleFlashTime != 0)
+                    {
+                        g2.drawImage(muzzleFlash.sprites[flashRandomizer], screenX+muzzleFlash.centerX+weaponStorage[equippedWeapon].muzzleLoc.x, screenY+weaponStorage[equippedWeapon].muzzleLoc.y, gp);
+                        gp.gt.muzzleFlashTime--;
+                    }
                     g2.rotate(Math.toRadians(-Angle), screenX+24, screenY+38);
-                    g2.translate(0,13);
+                    g2.translate(0,16);
                 }
             }
         

@@ -5,7 +5,7 @@
 package main;
 
 import object.OBJ_AmmoBox;
-import object.OBJ_AssaultRifle;
+import object.OBJ_M4A1;
 
 /**
  *
@@ -25,7 +25,7 @@ public class AssetSetter {
         gp.obj[0].worldX = 23 * gp.tileSize;
         gp.obj[0].worldY = 18 * gp.tileSize;
         
-        gp.obj[1] = new OBJ_AssaultRifle(gp);
+        gp.obj[1] = new OBJ_M4A1(gp);
         gp.obj[1].worldX = 25 * gp.tileSize;
         gp.obj[1].worldY = 18 * gp.tileSize;
         

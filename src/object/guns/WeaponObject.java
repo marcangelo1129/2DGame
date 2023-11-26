@@ -4,7 +4,11 @@
  */
 package object.guns;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.net.URL;
+import javax.sound.sampled.Clip;
+import main.Sound;
 import main.UtilityTool;
 
 /**
@@ -14,6 +18,12 @@ import main.UtilityTool;
 public class WeaponObject {
     public BufferedImage image;
     public BufferedImage UIimage;
+    public Clip clip1;
+    public Clip clip2;
+    public Clip clip3;
+    public Clip clip4;
+    public Sound weaponFx;
+    public Point muzzleLoc;
     public String name;
     public int worldX, worldY;
     public int MaxAmmoPerClip;
@@ -26,7 +36,8 @@ public class WeaponObject {
     public int centerY;
     public int weaponWidth;
     public int weaponHeight;
-    public int weaponWidthUI;
-    public int weaponHeightUI;
+    public double weaponScaling = 0.25f;
+    public double UIScaling = 0.50f;
+    public boolean reload = false;
     UtilityTool uTool = new UtilityTool();
 }

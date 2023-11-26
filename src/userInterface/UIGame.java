@@ -73,8 +73,8 @@ public class UIGame {
         {
             Image image = player.weaponStorage[equippedWeapon].image;
             Image UIimage = player.weaponStorage[equippedWeapon].UIimage;
-            g2.drawString(player.weaponStorage[equippedWeapon].name, WBX+25, WBY+36);
-            g2.drawImage(UIimage, WBX+35, WBY+40,null);
+            g2.drawString(player.weaponStorage[equippedWeapon].name, WBX+25, WBY+29);
+            g2.drawImage(UIimage, WBX+35, WBY+27,null);
             g2.drawImage(UIObject[7].image, WBX+40, WBY+85,null);
             
             int MaxAmmoPerClip = player.weaponStorage[equippedWeapon].MaxAmmoPerClip;

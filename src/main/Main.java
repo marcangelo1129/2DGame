@@ -13,6 +13,7 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -21,13 +22,14 @@ import javax.swing.SwingUtilities;
  */
 public class Main {
     static JFrame window = new JFrame();
+    public static javax.swing.JLabel weaponImage;
     
     public static void main(String args[]) throws IOException {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("2D Game");
-        
-        
+        weaponImage = new JLabel();
+        window.add(weaponImage);
         GamePanel gamepanel = new GamePanel();
         window.add(gamepanel);
         
@@ -39,11 +41,6 @@ public class Main {
         gamepanel.setupGame();
         gamepanel.ShowDebug();
         gamepanel.startGameThread();
-    }
-    
-    public void ShowDebug ()
-    {
-        
     }
     
     public Point getMouseCoordinates()

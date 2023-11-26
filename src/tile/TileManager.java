@@ -77,7 +77,6 @@ public class TileManager {
                 while(col < gp.maxWorldCol && row < gp.maxWorldRow)
                 {
                     String line = br.readLine();
-                    
                     while (col < gp.maxWorldCol)
                     {
                         String numbers[] = line.split(" ");

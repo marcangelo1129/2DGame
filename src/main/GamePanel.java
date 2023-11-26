@@ -42,12 +42,14 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManager tileM = new TileManager(this);
     KeyHandler KeyHandler = new KeyHandler();
     Sound sound = new Sound();
+    Sound music = new Sound();
     Main main = new Main();
     public DebugWindow dw = new DebugWindow(this);
+    public AltThreadTool gt = new AltThreadTool(this);
    
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
-     Thread gameThread;
+    Thread gameThread;
     //ENTITY & OBJECT
     public Player player = new Player(this, KeyHandler, main);
     public UIGame ui = new UIGame(this, player);
@@ -55,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
     public SuperObject objDeco[] = new SuperObject[10];
     public WeaponObject wbj[] = new WeaponObject[4];
     public decorationPlacement deco = new decorationPlacement(this);
+    
     
     int FPS = 60; //game's speed
     
@@ -66,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(KeyHandler);
+        this.addMouseListener(KeyHandler);
         this.setFocusable(true);
         
     }
@@ -86,10 +90,11 @@ public class GamePanel extends JPanel implements Runnable {
         
     }
     
-    public void startGameThread()//starts a method in a new thread (games always uses multiple threads to avoid lag)
+    public void startGameThread()//starts a method in a new thread1 (games always uses multiple threads to avoid lag)
     {
         gameThread = new Thread(this);
         gameThread.start();
+        gt.ThreadStart();
     }
     int spriteCounter = 0;
     @Override
@@ -98,7 +103,7 @@ public class GamePanel extends JPanel implements Runnable {
         double drawInterval = 1000000000/FPS; //1 second in nanoseconds divided by FPS value. 0.0016 seconds or 16 milliseconds
         double nextDrawTime = System.nanoTime() + drawInterval;//System.nanoTime gets the system's time in nanoseconds
         
-        while (gameThread != null)//checks if the thread still exists
+        while (gameThread != null)//checks if the thread1 still exists
         {
             update();
             repaint();//goes to paintComponent method. don't ask me how
@@ -176,21 +181,22 @@ public class GamePanel extends JPanel implements Runnable {
         //System.out.println(passed);
         g2.dispose();
     }
+    
     public void playMusic(int i)
     {
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
             
         
     }
     public void stopMusic()
     {
-        sound.stop();
+        music.stop();
     }
     public void playSE(int i)
     {
-        sound.setFile(i);
-        sound.play();
+        music.setFile(i);
+        music.play();
     }
 }

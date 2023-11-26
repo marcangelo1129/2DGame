@@ -6,6 +6,8 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  *
@@ -13,9 +15,10 @@ import java.awt.event.KeyListener;
  */
 
 //this class handles the player's key inputs
-public class KeyHandler implements KeyListener {
+public class KeyHandler implements KeyListener, MouseListener {
     
     public boolean upPressed, downPressed, leftPressed, rightPressed, onePressed, twoPressed, threePressed;
+    public boolean mouseLeftPressed, mouseRightPressed;
 
     @Override
     public void keyTyped(KeyEvent e) {} // useless
@@ -78,5 +81,36 @@ public class KeyHandler implements KeyListener {
             rightPressed = false;
         }
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {}// useless
+
+    @Override
+    public void mousePressed(MouseEvent e)
+    {
+        int code = e.getButton();
+        if (code == MouseEvent.BUTTON1)
+        {
+            mouseLeftPressed = true;
+        }
+    }
+        
+
+    @Override
+    public void mouseReleased(MouseEvent e)
+    {
+        int code = e.getButton();
+        
+        if (code == MouseEvent.BUTTON1)
+        {
+            mouseLeftPressed = false;
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}// useless
+
+    @Override
+    public void mouseExited(MouseEvent e) {}// useless
     
 }

@@ -4,9 +4,7 @@
  */
 package object.decoration;
 
-import java.awt.Graphics2D;
 import main.GamePanel;
-import object.SuperObject;
 
 /**
  *
@@ -20,11 +18,11 @@ public class decorationPlacement {
     }
     public void setDecoration()
     {
-        gp.objDeco[0] = new object.decoration.bigTree(gp);//decoration's class
+        gp.objDeco[0] = new bigTree(gp);//decoration's class
         gp.objDeco[0].worldX = 27 * gp.tileSize;//x location of this decoration
         gp.objDeco[0].worldY = 18 * gp.tileSize;//y location of this decoration
         
-        gp.objDeco[1] = new object.decoration.bigTree(gp);
+        gp.objDeco[1] = new bigTree(gp);
         gp.objDeco[1].worldX = 29 * gp.tileSize;
         gp.objDeco[1].worldY = 18 * gp.tileSize;
         
