@@ -28,8 +28,8 @@ public class Player extends Entity {
     KeyHandler KeyHandler;
     Main Main;
     
-    public final int screenX;
-    public final int screenY;
+    public int screenX;
+    public int screenY;
     String mDirection;
     
     public object.guns.WeaponObject[] weaponStorage = new object.guns.WeaponObject[4];
@@ -37,6 +37,7 @@ public class Player extends Entity {
     Random random = new Random();
     public BufferedImage weapon;
     public int equippedWeapon = 0;
+    public double weaponAngle;
     
     public Player (GamePanel gamepanel, KeyHandler KeyHandler, Main Main)
     {
@@ -253,22 +254,26 @@ public class Player extends Entity {
     {   
         Point Mouse = Main.getMouseCoordinates();
         Point Character = new Point(screenX+32,screenY+55);
-        double Angle = getAngle(Character, Mouse) - 90;
+        weaponAngle = getAngle(Character, Mouse) - 90;
         
-        if (Angle >= -90 && Angle < 90)
+        if (weaponAngle >= -90 && weaponAngle < 90)
             mDirection = "right";
         else
             mDirection = "left";
         
         if (weaponStorage[equippedWeapon] != null)
             {
-                int flashRandomizer = random.nextInt(4 - 0) + 0;
+                int flashRandomizer = random.nextInt(0, 4);
                 weapon = weaponStorage[equippedWeapon].image;
                 int weaponCenterX = screenX - weaponStorage[equippedWeapon].centerX;
                 int weaponCenterY = screenY + weaponStorage[equippedWeapon].centerY;
-                if (Angle >= -90 && Angle < 90)
+                int recoil = 0;
+                if (KeyHandler.mouseLeftPressed == true)
+                    recoil = gp.gt.recoil;
+                    
+                if (weaponAngle >= -90 && weaponAngle < 90)
                 {
-                    g2.rotate(Math.toRadians(Angle), screenX+24, screenY+25);
+                    g2.rotate(Math.toRadians(weaponAngle + recoil), screenX+24, screenY+25);
                     //gp.gt.drawWeaponAnimation(g2, weaponCenterX, weaponCenterY);
                     g2.drawImage(weapon, weaponCenterX ,weaponCenterY , null);
                     if (gp.gt.muzzleFlashTime != 0)
@@ -276,7 +281,7 @@ public class Player extends Entity {
                         g2.drawImage(muzzleFlash.sprites[flashRandomizer], screenX+muzzleFlash.centerX+weaponStorage[equippedWeapon].muzzleLoc.x, screenY+muzzleFlash.centerY+weaponStorage[equippedWeapon].muzzleLoc.y, gp);
                         gp.gt.muzzleFlashTime--;
                     }
-                    g2.rotate(Math.toRadians(-Angle), screenX+24, screenY+25);
+                    g2.rotate(Math.toRadians(-weaponAngle - recoil), screenX+24, screenY+25);
                 }
                 else
                 {
@@ -285,7 +290,7 @@ public class Player extends Entity {
                     AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
                     weapon = op.filter(weapon, null);
                     g2.translate(0,-16);
-                    g2.rotate(Math.toRadians(Angle), screenX+24, screenY+38);
+                    g2.rotate(Math.toRadians(weaponAngle + recoil), screenX+24, screenY+38);
                     //gp.gt.drawWeaponAnimation(g2, weaponCenterX, weaponCenterY);
                     g2.drawImage(weapon, weaponCenterX ,weaponCenterY , null);
                     if (gp.gt.muzzleFlashTime != 0)
@@ -293,11 +298,20 @@ public class Player extends Entity {
                         g2.drawImage(muzzleFlash.sprites[flashRandomizer], screenX+muzzleFlash.centerX+weaponStorage[equippedWeapon].muzzleLoc.x, screenY+weaponStorage[equippedWeapon].muzzleLoc.y, gp);
                         gp.gt.muzzleFlashTime--;
                     }
-                    g2.rotate(Math.toRadians(-Angle), screenX+24, screenY+38);
+                    g2.rotate(Math.toRadians(-weaponAngle - recoil), screenX+24, screenY+38);
                     g2.translate(0,16);
                 }
             }
         
+    }
+    
+    public void cameraPosition()
+    {
+        Point mouse = Main.getMouseCoordinates();
+        gp.pointer.x = gp.pointer.x + (mouse.x - gp.pointer.x) / 15;
+        gp.pointer.y = gp.pointer.y + (mouse.y - gp.pointer.y) / 15;
+        screenX = (int) (gp.centerScreenX - ((gp.pointer.x - gp.centerScreenX) / 1.5));
+        screenY = (int) (gp.centerScreenY - ((gp.pointer.y - gp.centerScreenY) / 1.5));
     }
     
     public static double getAngle(Point centerPt, Point targetPt)

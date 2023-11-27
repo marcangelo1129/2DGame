@@ -30,12 +30,15 @@ public class Gun_M4A1 extends WeaponObject {
         AmmoinClipRemaining = MaxAmmoPerClip;
         AmmoRemaining = 120;
         MaxAmmo = AmmoRemaining;
-        fireRate = 85;
-        damage = 0;
+        fireRate = 88;
+        damage = 28;
+        reloadTime = 1300;
         centerX = 5;
         centerY = 15;
+        defaultCenterX = 5;
         weaponWidth = 353;
         weaponHeight = 124;
+        recoil = 5;
         muzzleLoc = new Point(85,26);
         
         try
@@ -43,19 +46,8 @@ public class Gun_M4A1 extends WeaponObject {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/guns/M4A1/wpn_m4a1.png"));
             image = uTool.scaleImage(image, (int) (weaponWidth*weaponScaling), (int) (weaponHeight*weaponScaling));
             UIimage = uTool.scaleImage(image, (int) (weaponWidth * UIScaling), (int) (weaponHeight * UIScaling));
-            
-            AudioInputStream ais = AudioSystem.getAudioInputStream(getClass().getResource("/weaponFX/wpn_fire_m4a1.wav"));
-            clip1 = AudioSystem.getClip();
-            clip1.open(ais);
-            ais = AudioSystem.getAudioInputStream(getClass().getResource("/weaponFX/wpn_fire_m4a1.wav"));
-            clip2 = AudioSystem.getClip();
-            clip2.open(ais);
-            ais = AudioSystem.getAudioInputStream(getClass().getResource("/weaponFX/wpn_fire_m4a1.wav"));
-            clip3 = AudioSystem.getClip();
-            clip3.open(ais);
-            ais = AudioSystem.getAudioInputStream(getClass().getResource("/weaponFX/wpn_fire_m4a1.wav"));
-            clip4 = AudioSystem.getClip();
-            clip4.open(ais);
+            sound = getClass().getResource("/weaponFX/wpn_fire_m4a1.wav");
+            //AudioInputStream ais = AudioSystem.getAudioInputStream(getClass().getResource("/weaponFX/wpn_fire_m4a1.wav"));
             
 //            while(col < gp.maxWorldCol && row < gp.maxWorldRow)
 //            {

@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  *
@@ -16,6 +18,15 @@ import java.awt.event.MouseListener;
 
 //this class handles the player's key inputs
 public class KeyHandler implements KeyListener, MouseListener {
+
+    GamePanel gp;
+    
+    public KeyHandler (GamePanel gp)
+    {
+        this.gp = gp;
+    }
+    
+    ExecutorService executorService = Executors.newFixedThreadPool(1);
     
     public boolean upPressed, downPressed, leftPressed, rightPressed, onePressed, twoPressed, threePressed;
     public boolean mouseLeftPressed, mouseRightPressed;
@@ -92,6 +103,7 @@ public class KeyHandler implements KeyListener, MouseListener {
         if (code == MouseEvent.BUTTON1)
         {
             mouseLeftPressed = true;
+            executorService.execute(gp.gt);
         }
     }
         

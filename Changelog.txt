@@ -27,3 +27,6 @@
 
 (Marc) Version 0.0.14   --->  + Added shooting system (no projectile, no ammo system)
                               = Sprite of object Assault Rifle has changed and renamed to M4A1
+
+(Marc) Version 0.0.15   --->  + Camera now extends towards the mouse
+                              = Bug fixed where sometimes gun sounds doesn't play

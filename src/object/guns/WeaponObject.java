@@ -18,22 +18,23 @@ import main.UtilityTool;
 public class WeaponObject {
     public BufferedImage image;
     public BufferedImage UIimage;
-    public Clip clip1;
-    public Clip clip2;
-    public Clip clip3;
-    public Clip clip4;
-    public Sound weaponFx;
+    public URL sound;
     public Point muzzleLoc;
     public String name;
-    public int worldX, worldY;
+    
+    //weapon stats
     public int MaxAmmoPerClip;
     public int AmmoinClipRemaining;
     public int AmmoRemaining;
     public int MaxAmmo;
     public int fireRate;
     public int damage;
+    public int recoil;
+    public int reloadTime;
+    
     public int centerX;
     public int centerY;
+    public int defaultCenterX;
     public int weaponWidth;
     public int weaponHeight;
     public double weaponScaling = 0.25f;

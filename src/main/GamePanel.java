@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
     
     //SYSTEM
     public TileManager tileM = new TileManager(this);
-    KeyHandler KeyHandler = new KeyHandler();
+    KeyHandler KeyHandler = new KeyHandler(this);
     Sound sound = new Sound();
     Sound music = new Sound();
     Main main = new Main();
@@ -60,6 +61,9 @@ public class GamePanel extends JPanel implements Runnable {
     
     
     int FPS = 60; //game's speed
+    public int centerScreenX = player.screenX;
+    public int centerScreenY = player.screenY;
+    public Point pointer = new Point(centerScreenX, centerScreenY);
     
     
     
@@ -90,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
         
     }
     
-    public void startGameThread()//starts a method in a new thread1 (games always uses multiple threads to avoid lag)
+    public void startGameThread()//starts a method in a new thread (games always uses multiple threads to avoid lag)
     {
         gameThread = new Thread(this);
         gameThread.start();
@@ -103,7 +107,7 @@ public class GamePanel extends JPanel implements Runnable {
         double drawInterval = 1000000000/FPS; //1 second in nanoseconds divided by FPS value. 0.0016 seconds or 16 milliseconds
         double nextDrawTime = System.nanoTime() + drawInterval;//System.nanoTime gets the system's time in nanoseconds
         
-        while (gameThread != null)//checks if the thread1 still exists
+        while (gameThread != null)//checks if the thread still exists
         {
             update();
             repaint();//goes to paintComponent method. don't ask me how
@@ -130,13 +134,15 @@ public class GamePanel extends JPanel implements Runnable {
                 dw.jLabel2.setText("X: "+(player.worldX + tileSize) / tileSize+"  Y: "+(player.worldY + tileSize) / tileSize);
             }
             
-            nextDrawTime += drawInterval;//the purpose of nextDrawTime is to avoid lag. drawInterval (16 msec) - (total time taken by update and repaint method)
-        }//                              so if those methods processed things slower than normal, there would be no pause needed
+            nextDrawTime += drawInterval;//the purpose of nextDrawTime is to avoid lag. DrawInterval (16 msec) - (total time taken by update and repaint method)
+        }//                              so if those methods processed things slower than normal, there would be less pause on next process to compensate
+        //                               previous slow method process time.
     }
     
     public void update()//usually changes variables
     {
         player.update();
+        player.cameraPosition();
     }
     
     public void paintComponent(Graphics g)//handles graphics
@@ -175,7 +181,7 @@ public class GamePanel extends JPanel implements Runnable {
         
         
         ui.draw(g2);
-        
+        g2.drawRect(pointer.x - 6, pointer.y - 30, 10, 10);
         long drawEnd = System.nanoTime();
         long passed = drawEnd - drawStart;
         //System.out.println(passed);
