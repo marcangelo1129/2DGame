@@ -15,7 +15,10 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 import main.GamePanel;
+import main.Main;
+import main.UtilityTool;
 
 /**
  *
@@ -33,16 +36,23 @@ public class UIGame {
     int messageCounter = 0;
     float transparency = 1;
     UIObject[] UIObject = new UIObject[8];
+    BufferedImage cursor;
+    Main Main;
+    UtilityTool uTool = new UtilityTool();
     
-    public UIGame(GamePanel gp, Player player)
+    public UIGame(GamePanel gp, Player player, Main Main)
     {
         try {
             this.UIfont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/Valorax.otf")).deriveFont(17f);
+            cursor = ImageIO.read(getClass().getResourceAsStream("/objects/Cursor.png"));
+            cursor = uTool.scaleImage(cursor, 36, 36);
+            
         } catch (FontFormatException ex) {
         } catch (IOException ex) {
         }
         this.gp = gp;
         this.player = player;
+        this.Main = Main;
         MsgFont = new Font("Arial", MsgFont.PLAIN, 15);
         UIObject[0] = new BTN_1();
         UIObject[1] = new BTN_2();
@@ -56,13 +66,17 @@ public class UIGame {
     
     public void showMessage(String text, int x, int y)
     {
+        transparency = 1;
         message = text;
         messageOn = true;
+        messageCounter = 0;
         messageloc = new Point(x,y);
     }
     
     public void draw(Graphics2D g2)
     {
+        Point Mouse = Main.getMouseCoordinates();
+        g2.drawImage(cursor, Mouse.x-25, Mouse.y-48, null);
         g2.setFont(UIfont);
         g2.setColor(Color.white);
         int WBX = UIObject[6].area.x;

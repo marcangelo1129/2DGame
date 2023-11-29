@@ -4,14 +4,18 @@
  */
 package main;
 import Debug.DebugWindow;
+import entity.Entity;
 import userInterface.UIGame;
 import entity.Player;
+import entity.Projectile;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -46,20 +50,25 @@ public class GamePanel extends JPanel implements Runnable {
     Sound music = new Sound();
     Main main = new Main();
     public DebugWindow dw = new DebugWindow(this);
-    public AltThreadTool gt = new AltThreadTool(this);
-   
+    public AltThreadTool att = new AltThreadTool(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     Thread gameThread;
+    
+    
     //ENTITY & OBJECT
     public Player player = new Player(this, KeyHandler, main);
-    public UIGame ui = new UIGame(this, player);
     public SuperObject obj[] = new SuperObject[10];
     public SuperObject objDeco[] = new SuperObject[10];
     public WeaponObject wbj[] = new WeaponObject[4];
     public decorationPlacement deco = new decorationPlacement(this);
+    public ArrayList<Projectile> projectileList = new ArrayList<>();
+    
+    //UI
+    public UIGame ui = new UIGame(this, player, main);
     
     
+    //other settings
     int FPS = 60; //game's speed
     public int centerScreenX = player.screenX;
     public int centerScreenY = player.screenY;
@@ -98,7 +107,7 @@ public class GamePanel extends JPanel implements Runnable {
     {
         gameThread = new Thread(this);
         gameThread.start();
-        gt.ThreadStart();
+        att.ThreadStart();
     }
     int spriteCounter = 0;
     @Override
@@ -143,16 +152,30 @@ public class GamePanel extends JPanel implements Runnable {
     {
         player.update();
         player.cameraPosition();
+        for (int i = 0; i < projectileList.size(); i++)
+        {
+            if (projectileList.get(i) != null)
+            {
+                int speed = projectileList.get(i).speed;
+                double angle = projectileList.get(i).angle;
+                int worldX = projectileList.get(i).worldX;
+                int worldY = projectileList.get(i).worldY;
+                angle = angle = (angle - 90) / 180 * Math.PI;
+                //Projectile.worldX += (Math.cos(angle) * speed);
+                //Projectile.worldY += (Math.sin(angle) * speed);
+                projectileList.get(i).worldX += (Math.cos(angle) * speed);
+                projectileList.get(i).worldY += (Math.sin(angle) * speed);
+            }
+        }
     }
     
     public void paintComponent(Graphics g)//handles graphics
     {
+        //long time = System.nanoTime();
         super.paintComponent(g);
         
         Graphics2D g2 = (Graphics2D)g;
         
-        long drawStart = 0;
-        drawStart = System.nanoTime();
         tileM.draw(g2);
         for (int i = 0; i < obj.length; i++)
         {
@@ -170,6 +193,19 @@ public class GamePanel extends JPanel implements Runnable {
         }
         
         player.draw(g2);
+        for (int i = 0; i < projectileList.size(); i++)
+        {
+            if (projectileList.get(i) != null)
+            {
+                int screenX = projectileList.get(i).worldX - player.worldX + player.screenX + projectileList.get(i).centerX;
+                int screenY = projectileList.get(i).worldY - player.worldY + player.screenY + projectileList.get(i).centerY;
+                g2.rotate(Math.toRadians(projectileList.get(i).angle - 90), screenX + projectileList.get(i).centerX, screenY + projectileList.get(i).centerY);
+                if (dw.jCheckBox2.isSelected())
+                    g2.drawRect(screenX + projectileList.get(i).solidArea.x, screenY + projectileList.get(i).solidArea.y, projectileList.get(i).solidArea.width, projectileList.get(i).solidArea.height);
+                g2.drawImage(projectileList.get(i).image,screenX,screenY,null);
+                g2.rotate(Math.toRadians(-projectileList.get(i).angle + 90), screenX + projectileList.get(i).centerX, screenY + projectileList.get(i).centerY);
+            }
+        }
         player.drawWeapon(g2);
         for (int i = 0; i < objDeco.length; i++)
         {
@@ -181,10 +217,10 @@ public class GamePanel extends JPanel implements Runnable {
         
         
         ui.draw(g2);
-        g2.drawRect(pointer.x - 6, pointer.y - 30, 10, 10);
-        long drawEnd = System.nanoTime();
-        long passed = drawEnd - drawStart;
-        //System.out.println(passed);
+        if (dw.jCheckBox3.isSelected())
+            g2.drawRect(pointer.x - 6, pointer.y - 30, 10, 10);
+        att.drawProgressBar(g2);
+        //System.out.println(System.nanoTime() - time);
         g2.dispose();
     }
     

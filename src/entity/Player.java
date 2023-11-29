@@ -31,6 +31,8 @@ public class Player extends Entity {
     public int screenX;
     public int screenY;
     String mDirection;
+    public Projectile projectile;
+    
     
     public object.guns.WeaponObject[] weaponStorage = new object.guns.WeaponObject[4];
     muzzleFlash muzzleFlash = new muzzleFlash();
@@ -38,6 +40,7 @@ public class Player extends Entity {
     public BufferedImage weapon;
     public int equippedWeapon = 0;
     public double weaponAngle;
+    UtilityTool uTool = new UtilityTool();
     
     public Player (GamePanel gamepanel, KeyHandler KeyHandler, Main Main)
     {
@@ -61,6 +64,7 @@ public class Player extends Entity {
         worldY = gp.tileSize * 20;
         speed = 4;
         direction = "down";
+        hp = 100;
     }
     public void getPlayerImage()
     {
@@ -75,7 +79,6 @@ public class Player extends Entity {
     }
     public BufferedImage setup(String imageName)
     {
-        UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
         try
         {
@@ -221,10 +224,23 @@ public class Player extends Entity {
             switch (objectName)
             {
                 case "AmmoBox":
+                    if (weaponStorage[0] != null)
+                    {
+                        if (weaponStorage[0].AmmoRemaining + weaponStorage[0].ammoBoxIncrement <= weaponStorage[0].MaxAmmo)
+                        {
+                            weaponStorage[0].AmmoRemaining += weaponStorage[0].ammoBoxIncrement; 
+                        }
+                        else
+                        {
+                            weaponStorage[0].AmmoRemaining = weaponStorage[0].MaxAmmo;
+                        }
+                        gp.ui.showMessage("Ammo+", screenX-5, screenY);
+                            
+                    }
                     break;
                 case "M4A1":
                     weaponStorage[0] = new object.guns.Gun_M4A1();
-                    gp.ui.showMessage("M4A1 Equipped", screenX-43, screenY);
+                    gp.ui.showMessage("M4A1 Equipped", screenX-23, screenY);
                     break;
             }
             gp.obj[i] = null;
@@ -254,7 +270,7 @@ public class Player extends Entity {
     {   
         Point Mouse = Main.getMouseCoordinates();
         Point Character = new Point(screenX+32,screenY+55);
-        weaponAngle = getAngle(Character, Mouse) - 90;
+        weaponAngle = uTool.getAngle(Character, Mouse) - 90;
         
         if (weaponAngle >= -90 && weaponAngle < 90)
             mDirection = "right";
@@ -269,17 +285,17 @@ public class Player extends Entity {
                 int weaponCenterY = screenY + weaponStorage[equippedWeapon].centerY;
                 int recoil = 0;
                 if (KeyHandler.mouseLeftPressed == true)
-                    recoil = gp.gt.recoil;
+                    recoil = gp.att.recoil;
                     
                 if (weaponAngle >= -90 && weaponAngle < 90)
                 {
                     g2.rotate(Math.toRadians(weaponAngle + recoil), screenX+24, screenY+25);
-                    //gp.gt.drawWeaponAnimation(g2, weaponCenterX, weaponCenterY);
+                    //gp.att.drawWeaponAnimation(g2, weaponCenterX, weaponCenterY);
                     g2.drawImage(weapon, weaponCenterX ,weaponCenterY , null);
-                    if (gp.gt.muzzleFlashTime != 0)
+                    if (gp.att.muzzleFlashTime != 0)
                     {
                         g2.drawImage(muzzleFlash.sprites[flashRandomizer], screenX+muzzleFlash.centerX+weaponStorage[equippedWeapon].muzzleLoc.x, screenY+muzzleFlash.centerY+weaponStorage[equippedWeapon].muzzleLoc.y, gp);
-                        gp.gt.muzzleFlashTime--;
+                        gp.att.muzzleFlashTime--;
                     }
                     g2.rotate(Math.toRadians(-weaponAngle - recoil), screenX+24, screenY+25);
                 }
@@ -291,12 +307,12 @@ public class Player extends Entity {
                     weapon = op.filter(weapon, null);
                     g2.translate(0,-16);
                     g2.rotate(Math.toRadians(weaponAngle + recoil), screenX+24, screenY+38);
-                    //gp.gt.drawWeaponAnimation(g2, weaponCenterX, weaponCenterY);
+                    //gp.att.drawWeaponAnimation(g2, weaponCenterX, weaponCenterY);
                     g2.drawImage(weapon, weaponCenterX ,weaponCenterY , null);
-                    if (gp.gt.muzzleFlashTime != 0)
+                    if (gp.att.muzzleFlashTime != 0)
                     {
                         g2.drawImage(muzzleFlash.sprites[flashRandomizer], screenX+muzzleFlash.centerX+weaponStorage[equippedWeapon].muzzleLoc.x, screenY+weaponStorage[equippedWeapon].muzzleLoc.y, gp);
-                        gp.gt.muzzleFlashTime--;
+                        gp.att.muzzleFlashTime--;
                     }
                     g2.rotate(Math.toRadians(-weaponAngle - recoil), screenX+24, screenY+38);
                     g2.translate(0,16);
@@ -314,14 +330,4 @@ public class Player extends Entity {
         screenY = (int) (gp.centerScreenY - ((gp.pointer.y - gp.centerScreenY) / 1.5));
     }
     
-    public static double getAngle(Point centerPt, Point targetPt)
-{
-    double theta = Math.atan2(targetPt.y - centerPt.y, targetPt.x - centerPt.x);
-    theta += Math.PI/2.0;
-    double angle = Math.toDegrees(theta);
-    if (angle < 0) {
-        angle += 360;
-    }
-    return angle;
-}
 }

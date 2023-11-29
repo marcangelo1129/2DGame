@@ -33,6 +33,7 @@ public class DebugWindow extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +71,13 @@ public class DebugWindow extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox3.setText("Show Camera Pointer");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,7 +96,8 @@ public class DebugWindow extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jSpinner1))
-                        .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jCheckBox3))
                 .addContainerGap(161, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,7 +117,9 @@ public class DebugWindow extends javax.swing.JFrame {
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox2)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox3)
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         pack();
@@ -129,6 +140,10 @@ public class DebugWindow extends javax.swing.JFrame {
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     
     /**
@@ -170,6 +185,7 @@ public class DebugWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     public javax.swing.JCheckBox jCheckBox1;
     public javax.swing.JCheckBox jCheckBox2;
+    public javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -30,6 +30,7 @@ public class KeyHandler implements KeyListener, MouseListener {
     
     public boolean upPressed, downPressed, leftPressed, rightPressed, onePressed, twoPressed, threePressed;
     public boolean mouseLeftPressed, mouseRightPressed;
+    public boolean RPressed;
 
     @Override
     public void keyTyped(KeyEvent e) {} // useless
@@ -67,6 +68,11 @@ public class KeyHandler implements KeyListener, MouseListener {
         { 
             threePressed = true;
         }
+        if (code == KeyEvent.VK_R)
+        { 
+            RPressed = true;
+            executorService.execute(gp.att);
+        }
         
     }
 
@@ -103,7 +109,7 @@ public class KeyHandler implements KeyListener, MouseListener {
         if (code == MouseEvent.BUTTON1)
         {
             mouseLeftPressed = true;
-            executorService.execute(gp.gt);
+            executorService.execute(gp.att);
         }
     }
         

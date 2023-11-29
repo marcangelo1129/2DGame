@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -31,7 +31,11 @@ public class WeaponObject {
     public int damage;
     public int recoil;
     public int reloadTime;
+    public int ammoBoxIncrement;
+    public int penetration;
     
+    public int bulletX;
+    public int bulletY;
     public int centerX;
     public int centerY;
     public int defaultCenterX;

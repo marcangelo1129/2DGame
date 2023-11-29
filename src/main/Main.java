@@ -54,7 +54,7 @@ public class Main {
     
     public void setCursor() throws IOException
     {
-        Image customImage = ImageIO.read(getClass().getResourceAsStream("/objects/Cursor.png"));
+        Image customImage = ImageIO.read(getClass().getResourceAsStream("/objects/blank.png"));
         Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(customImage, new Point(15, 15), "customCursor");
         window.setCursor( customCursor );
     }

@@ -16,7 +16,7 @@ import javax.sound.sampled.Clip;
 public class Sound {
     
     public Clip clip;
-    public Clip[] clipArray = new Clip[20];
+    public Clip[] clipArray = new Clip[30];
     int clipCounter = 1;
     URL soundURL[] = new URL[30];
     
@@ -57,9 +57,6 @@ public class Sound {
         int i = 0;
         while(true)
         {
-            if (i < 19) i++;
-            else i = 0;
-            
             if (clipArray[i] == null)
             {
                 try
@@ -78,6 +75,8 @@ public class Sound {
                     clipArray[i] = null;
                 }
             }
+            if (i < 29) i++;
+            else i = 0;
         }
     }
     

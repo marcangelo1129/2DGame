@@ -5,17 +5,7 @@
 package object.guns;
 
 import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.awt.image.RasterFormatException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -28,17 +18,21 @@ public class Gun_M4A1 extends WeaponObject {
         name = "M4A1";
         MaxAmmoPerClip = 30;
         AmmoinClipRemaining = MaxAmmoPerClip;
-        AmmoRemaining = 120;
+        AmmoRemaining = 300;
+        ammoBoxIncrement = 120;
         MaxAmmo = AmmoRemaining;
-        fireRate = 88;
+        fireRate = 88;//88
         damage = 28;
         reloadTime = 1300;
         centerX = 5;
         centerY = 15;
+        bulletX = 28;
+        bulletY = 22;
         defaultCenterX = 5;
         weaponWidth = 353;
         weaponHeight = 124;
-        recoil = 5;
+        recoil = 4;
+        penetration = 2;
         muzzleLoc = new Point(85,26);
         
         try
@@ -47,27 +41,6 @@ public class Gun_M4A1 extends WeaponObject {
             image = uTool.scaleImage(image, (int) (weaponWidth*weaponScaling), (int) (weaponHeight*weaponScaling));
             UIimage = uTool.scaleImage(image, (int) (weaponWidth * UIScaling), (int) (weaponHeight * UIScaling));
             sound = getClass().getResource("/weaponFX/wpn_fire_m4a1.wav");
-            //AudioInputStream ais = AudioSystem.getAudioInputStream(getClass().getResource("/weaponFX/wpn_fire_m4a1.wav"));
-            
-//            while(col < gp.maxWorldCol && row < gp.maxWorldRow)
-//            {
-//                String line = br.readLine();
-//
-//                while (col < gp.maxWorldCol)
-//                {
-//                    String numbers[] = line.split(" ");
-//
-//                    int num = Integer.parseInt(numbers[col]);
-//
-//                    mapTileNum[col][row] = num;
-//                    col++;
-//                }
-//                if(col == gp.maxWorldCol)
-//                {
-//                    col = 0;
-//                    row++;
-//                }
-//            }
             
         }catch(Exception ex) {ex.printStackTrace();}
         

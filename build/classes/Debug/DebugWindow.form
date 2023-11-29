@@ -41,6 +41,7 @@
                       </Group>
                       <Component id="jCheckBox2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jCheckBox3" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="161" max="32767" attributes="0"/>
           </Group>
@@ -65,7 +66,9 @@
               <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="169" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="143" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -124,6 +127,17 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox2ActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jCheckBox3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Show Camera Pointer"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox3ActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

@@ -30,3 +30,7 @@
 
 (Marc) Version 0.0.15   --->  + Camera now extends towards the mouse
                               = Bug fixed where sometimes gun sounds doesn't play
+
+(Marc) Version 0.0.16   --->  + Added ammo system
+                              + Added projectiles. Weapon now shoots bullets (no collision)
+                              = Sleep method code improved for more accurate sleep accuracy.
