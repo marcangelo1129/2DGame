@@ -23,7 +23,7 @@ public class UtilityTool {
         return scaledImage;
     }
     
-    public static double getAngle(Point centerPt, Point targetPt)
+    public double getAngle(Point centerPt, Point targetPt)
     {
         double theta = Math.atan2(targetPt.y - centerPt.y, targetPt.x - centerPt.x);
         theta += Math.PI/2.0;

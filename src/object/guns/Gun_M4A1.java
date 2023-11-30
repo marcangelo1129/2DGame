@@ -24,16 +24,15 @@ public class Gun_M4A1 extends WeaponObject {
         fireRate = 88;//88
         damage = 28;
         reloadTime = 1300;
-        centerX = 5;
-        centerY = 15;
-        bulletX = 28;
-        bulletY = 22;
-        defaultCenterX = 5;
+        centerX = 31;
+        centerY = 12;
+        bulletX = 31;
+        bulletY = 12;
+        defaultCenterX = centerX;
         weaponWidth = 353;
         weaponHeight = 124;
-        recoil = 4;
+        recoil = 8;
         penetration = 2;
-        muzzleLoc = new Point(85,26);
         
         try
         {

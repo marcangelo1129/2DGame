@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import main.UtilityTool;
@@ -24,6 +25,7 @@ public class Projectile {
     public BufferedImage image;
     public double scaling = 0.50f;
     public Rectangle solidArea;
+    public Point solidAreaOffset;
     public int width;
     public int height;
     public int centerX;

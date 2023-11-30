@@ -76,7 +76,7 @@ public class UIGame {
     public void draw(Graphics2D g2)
     {
         Point Mouse = Main.getMouseCoordinates();
-        g2.drawImage(cursor, Mouse.x-25, Mouse.y-48, null);
+        g2.drawImage(cursor, Mouse.x-17, Mouse.y-17, null);
         g2.setFont(UIfont);
         g2.setColor(Color.white);
         int WBX = UIObject[6].area.x;

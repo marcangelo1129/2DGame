@@ -66,16 +66,14 @@ public class AltThreadTool implements Runnable {
             {
                 //variable assignment
                 Point Mouse = gp.main.getMouseCoordinates();
-                Point Character = new Point(gp.player.screenX+32,gp.player.screenY+55);
-                double angle = uTool.getAngle(Character, Mouse);
-                int weaponCenterX = gp.player.screenX - gp.player.weaponStorage[gp.player.equippedWeapon].centerX;
-                int weaponCenterY = gp.player.screenY + gp.player.weaponStorage[gp.player.equippedWeapon].centerY;
+                double angle = uTool.getAngle(gp.player.centerPoint, Mouse);
                 int vRecoil = 5;
                 int recoilDelay = 5;
-                recoil = random.nextInt(gp.player.weaponStorage[gp.player.equippedWeapon].recoil * -1,gp.player.weaponStorage[gp.player.equippedWeapon].recoil);
+                if (gp.player.weaponStorage[gp.player.equippedWeapon].recoil > 0)
+                    recoil = random.nextInt((int) (gp.player.weaponStorage[gp.player.equippedWeapon].recoil * -0.5), (int) (gp.player.weaponStorage[gp.player.equippedWeapon].recoil * 0.5));
                 
                 //spawn bullet projectile
-                bullet bullet = new bullet(gp.player.worldX + gp.player.weaponStorage[gp.player.equippedWeapon].bulletX, gp.player.worldY + gp.player.weaponStorage[gp.player.equippedWeapon].bulletY, angle + recoil);
+                bullet bullet = new bullet(gp.player.worldX + 24, gp.player.worldY + 18, angle + recoil);
                 gp.projectileList.add(bullet);
                 
                 //player camera shake
@@ -83,7 +81,10 @@ public class AltThreadTool implements Runnable {
                 gp.pointer.x = (int) (gp.pointer.x - (Math.cos(angle) * 10) - random.nextInt(-vRecoil, vRecoil));
                 gp.pointer.y = (int) (gp.pointer.y - (Math.sin(angle) * 10) - random.nextInt(-vRecoil, vRecoil));
                 
-                //weapon visual recoil
+                //weapon stats change
+                gp.player.weaponStorage[gp.player.equippedWeapon].AmmoinClipRemaining--;
+                
+                //weapon visual recoil and firerate delay
                 timeDifference = 0;
                 muzzleFlashTime = 3;
                 gp.sound.playSFX(gp.player.weaponStorage[gp.player.equippedWeapon].sound);
@@ -96,10 +97,6 @@ public class AltThreadTool implements Runnable {
                 gp.player.weaponStorage[gp.player.equippedWeapon].centerX += 1;
                 Sleep (recoilDelay);
                 gp.player.weaponStorage[gp.player.equippedWeapon].centerX += 1;
-                
-                //weapon stats change
-                gp.player.weaponStorage[gp.player.equippedWeapon].AmmoinClipRemaining--;
-
                 Sleep (gp.player.weaponStorage[gp.player.equippedWeapon].fireRate - (recoilDelay * 4));
                 gp.player.weaponStorage[gp.player.equippedWeapon].centerX = gp.player.weaponStorage[gp.player.equippedWeapon].defaultCenterX;
                 if (gp.player.weaponStorage[gp.player.equippedWeapon].AmmoinClipRemaining == 0)
@@ -107,6 +104,7 @@ public class AltThreadTool implements Runnable {
             }
             else if (gp.player.weaponStorage[gp.player.equippedWeapon].AmmoRemaining == 0)
             {
+                recoil = 0;
                gp.sound.playSFX(getClass().getResource("/weaponFX/wpn_empty.wav"));
                Sleep(200);
             }
@@ -184,7 +182,7 @@ public class AltThreadTool implements Runnable {
             Point Mouse = gp.main.getMouseCoordinates();
             g2.setColor(Color.getHSBColor((float) 0.41, (float) barValue / 100, (float) 0.90));
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.fillArc(Mouse.x-32, Mouse.y-55, 50, 50, 90, 360-(int)(3.6*barValue));
+            g2.fillArc(Mouse.x-24, Mouse.y-24, 50, 50, 90, 360-(int)(3.6*barValue));
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
         }
     }

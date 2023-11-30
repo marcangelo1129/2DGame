@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import javax.imageio.ImageIO;
 import main.GamePanel;
@@ -23,7 +24,8 @@ public class bullet extends Projectile {
         height = 12;
         centerX = 0;
         centerY = 3;
-        solidArea = new Rectangle(75,-2,10,10);
+        solidArea = new Rectangle(0,0,10,10);
+        solidAreaOffset = new Point(80,80);
         this.worldX = worldX;
         this.worldY = worldY;
         this.angle = angle;

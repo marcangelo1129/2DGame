@@ -48,6 +48,8 @@ public class Main {
         PointerInfo a = MouseInfo.getPointerInfo();
 	Point point = new Point(a.getLocation());
 	SwingUtilities.convertPointFromScreen(point, window);
+        point.x = point.x - window.getInsets().right;
+        point.y = point.y - window.getInsets().top;
         
         return point;
     }

@@ -158,11 +158,7 @@ public class GamePanel extends JPanel implements Runnable {
             {
                 int speed = projectileList.get(i).speed;
                 double angle = projectileList.get(i).angle;
-                int worldX = projectileList.get(i).worldX;
-                int worldY = projectileList.get(i).worldY;
-                angle = angle = (angle - 90) / 180 * Math.PI;
-                //Projectile.worldX += (Math.cos(angle) * speed);
-                //Projectile.worldY += (Math.sin(angle) * speed);
+                angle = (double)((angle - 90) / 180 * Math.PI);
                 projectileList.get(i).worldX += (Math.cos(angle) * speed);
                 projectileList.get(i).worldY += (Math.sin(angle) * speed);
             }
@@ -199,11 +195,16 @@ public class GamePanel extends JPanel implements Runnable {
             {
                 int screenX = projectileList.get(i).worldX - player.worldX + player.screenX + projectileList.get(i).centerX;
                 int screenY = projectileList.get(i).worldY - player.worldY + player.screenY + projectileList.get(i).centerY;
-                g2.rotate(Math.toRadians(projectileList.get(i).angle - 90), screenX + projectileList.get(i).centerX, screenY + projectileList.get(i).centerY);
+                double angle = projectileList.get(i).angle;
+                angle = (angle - 90) / 180 * Math.PI;
+                projectileList.get(i).solidArea.x = (int) (screenX + (Math.cos(angle) * projectileList.get(i).solidAreaOffset.x)) -6;
+                projectileList.get(i).solidArea.y = (int) (screenY + (Math.sin(angle) * projectileList.get(i).solidAreaOffset.y)) -2;
                 if (dw.jCheckBox2.isSelected())
-                    g2.drawRect(screenX + projectileList.get(i).solidArea.x, screenY + projectileList.get(i).solidArea.y, projectileList.get(i).solidArea.width, projectileList.get(i).solidArea.height);
+                    g2.drawRect(projectileList.get(i).solidArea.x, projectileList.get(i).solidArea.y, projectileList.get(i).solidArea.width, projectileList.get(i).solidArea.height);
+                g2.rotate(Math.toRadians(projectileList.get(i).angle - 90), screenX + projectileList.get(i).centerX, screenY + projectileList.get(i).centerY);
                 g2.drawImage(projectileList.get(i).image,screenX,screenY,null);
                 g2.rotate(Math.toRadians(-projectileList.get(i).angle + 90), screenX + projectileList.get(i).centerX, screenY + projectileList.get(i).centerY);
+                
             }
         }
         player.drawWeapon(g2);

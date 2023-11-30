@@ -33,4 +33,9 @@
 
 (Marc) Version 0.0.16   --->  + Added ammo system
                               + Added projectiles. Weapon now shoots bullets (no collision)
-                              = Sleep method code improved for more accurate sleep accuracy.
+                              = Sleep method code improved for more accurate sleep accuracy
+
+(Marc) Version 0.0.16a  --->  = Bug fixed where getting mouse coordinates also includes the title bar area
+                                which made inaccuracies in equipped weapon location and angles (rookie mistake)
+                              = draw method of player weapon reconstructed for accurate weapon draw location
+                                (It also made importing new weapons much easier)

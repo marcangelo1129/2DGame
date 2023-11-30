@@ -22,7 +22,7 @@ public class muzzleFlash {
     public int spriteHeight = 64;
     public int spriteCount = 5;
     public double scaling = 0.25f;
-    public int centerX = (int) (-5 * scaling);
+    public int centerX = 3;
     public int centerY = (int) (-32 * scaling);
     public BufferedImage[] sprites = new BufferedImage[spriteCount];
     UtilityTool uTool = new UtilityTool();

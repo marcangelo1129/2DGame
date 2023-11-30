@@ -19,7 +19,6 @@ public class WeaponObject {
     public BufferedImage image;
     public BufferedImage UIimage;
     public URL sound;
-    public Point muzzleLoc;
     public String name;
     
     //weapon stats
