@@ -20,6 +20,8 @@ public class OBJ_M4A1 extends SuperObject {
     public OBJ_M4A1(GamePanel gp)
     {
         solidArea = new Rectangle(0,0,48,48);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         name = "M4A1";
         try
         {

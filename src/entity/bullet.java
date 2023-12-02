@@ -7,7 +7,6 @@ package entity;
 import java.awt.Point;
 import java.awt.Rectangle;
 import javax.imageio.ImageIO;
-import main.GamePanel;
 
 /**
  *
@@ -19,11 +18,12 @@ public class bullet extends Projectile {
     
     public bullet (int worldX, int worldY, double angle)
     {
-        speed = 40;//40
+        speed = 24;//40
         width = 163;
         height = 12;
         centerX = 0;
         centerY = 3;
+        alive = true;
         solidArea = new Rectangle(0,0,10,10);
         solidAreaOffset = new Point(80,80);
         this.worldX = worldX;

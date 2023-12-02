@@ -12,6 +12,7 @@ import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -94,7 +95,7 @@ public class UIGame {
             int MaxAmmoPerClip = player.weaponStorage[equippedWeapon].MaxAmmoPerClip;
             int AmmoinClipRemaining = player.weaponStorage[equippedWeapon].AmmoinClipRemaining;
             int AmmoRemaining = player.weaponStorage[equippedWeapon].AmmoRemaining;
-            String AmmoDisplay = ""+AmmoinClipRemaining+"/"+MaxAmmoPerClip+" "+AmmoRemaining;
+            String AmmoDisplay = ""+AmmoinClipRemaining+" / "+AmmoRemaining;
             
             g2.drawString(AmmoDisplay, WBX+75, WBY+111);
         }

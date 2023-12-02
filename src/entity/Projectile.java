@@ -30,6 +30,7 @@ public class Projectile {
     public int height;
     public int centerX;
     public int centerY;
+    public boolean alive;
     public UtilityTool uTool = new UtilityTool();
     
 

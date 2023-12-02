@@ -24,9 +24,9 @@ public class CollisionChecker {
         if (gp.dw.jCheckBox1.isSelected())
             return;
         int entityLeftX = entity.worldX + entity.solidArea.x;
-        int entityRightX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
+        int entityRightX = entity.worldX + entity.solidArea.x + entity.solidArea.width - 1;
         int entityTopY = entity.worldY + entity.solidArea.y;
-        int entityBottomY = entity.worldY + entity.solidArea.x + entity.solidArea.height;
+        int entityBottomY = entity.worldY + entity.solidArea.x + entity.solidArea.height + 5;
         
         int entityLeftCol = entityLeftX / gp.tileSize;
         int entityRightCol = entityRightX / gp.tileSize;
@@ -192,15 +192,15 @@ public class CollisionChecker {
     {
         if (gp.dw.jCheckBox1.isSelected())
             return;
-        for (int i = 0; i < gp.objDeco.length; i++)
+        for (int i = 0; i < gp.objDeco.size(); i++)
         {
-            if (gp.objDeco[i] != null)
+            if (gp.objDeco.get(i) != null)
             {
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
                 
-                gp.objDeco[i].solidArea.x = gp.objDeco[i].worldX + gp.objDeco[i].solidArea.x;
-                gp.objDeco[i].solidArea.y = gp.objDeco[i].worldY + gp.objDeco[i].solidArea.y;
+                gp.objDeco.get(i).solidArea.x = gp.objDeco.get(i).worldX + gp.objDeco.get(i).solidArea.x;
+                gp.objDeco.get(i).solidArea.y = gp.objDeco.get(i).worldY + gp.objDeco.get(i).solidArea.y;
                 
                 switch (entity.direction)
                 {
@@ -217,9 +217,9 @@ public class CollisionChecker {
                         entity.solidArea.x += entity.speed;
                         break;
                 }
-                if (entity.solidArea.intersects(gp.objDeco[i].solidArea))
+                if (entity.solidArea.intersects(gp.objDeco.get(i).solidArea))
                 {
-                    if (gp.objDeco[i].collision = true)
+                    if (gp.objDeco.get(i).collision = true)
                         entity.collisionOn = true;
                 }
                 switch (entity.direction)
@@ -237,9 +237,9 @@ public class CollisionChecker {
                         entity.solidArea.y -= entity.speed;
                         break;
                 }
-                if (entity.solidArea.intersects(gp.objDeco[i].solidArea))
+                if (entity.solidArea.intersects(gp.objDeco.get(i).solidArea))
                 {
-                    if (gp.objDeco[i].collision = true)
+                    if (gp.objDeco.get(i).collision = true)
                         entity.collisionSide1 = true;
                 }
                 else
@@ -258,9 +258,9 @@ public class CollisionChecker {
                         entity.solidArea.x += entity.speed;
                         break;
                 }
-                if (entity.solidArea.intersects(gp.objDeco[i].solidArea))
+                if (entity.solidArea.intersects(gp.objDeco.get(i).solidArea))
                 {
-                    if (gp.objDeco[i].collision = true)
+                    if (gp.objDeco.get(i).collision = true)
                         entity.collisionSide2 = true;
                 }
                 }
@@ -268,9 +268,38 @@ public class CollisionChecker {
                 
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
-                gp.objDeco[i].solidArea.x = gp.objDeco[i].solidAreaDefaultX;
-                gp.objDeco[i].solidArea.y = gp.objDeco[i].solidAreaDefaultY;
+                gp.objDeco.get(i).solidArea.x = gp.objDeco.get(i).solidAreaDefaultX;
+                gp.objDeco.get(i).solidArea.y = gp.objDeco.get(i).solidAreaDefaultY;
             }
         }
+    }
+    public boolean checkBulletCollision(int index)
+    {
+        int bulletX = (gp.projectileList.get(index).solidArea.x + 5) / gp.tileSize;
+        int bulletY = (gp.projectileList.get(index).solidArea.y + 5) / gp.tileSize;
+        int tileNum = gp.tileM.mapTileNum[bulletX][bulletY];
+        if (gp.tileM.tile[tileNum].bulletCollision == true)
+        {
+            gp.projectileList.get(index).alive = false;
+            return true;
+        }
+        
+        for (int i = 0; i < gp.objDeco.size(); i++)
+        {
+            if (gp.objDeco.get(i) != null)
+            {
+                gp.objDeco.get(i).solidArea.x = gp.objDeco.get(i).worldX + gp.objDeco.get(i).solidArea.x;
+                gp.objDeco.get(i).solidArea.y = gp.objDeco.get(i).worldY + gp.objDeco.get(i).solidArea.y;
+                if ((gp.objDeco.get(i).solidArea).intersects(gp.projectileList.get(index).solidArea))
+                {
+                    gp.projectileList.get(index).alive = false;
+                    return true;
+                }
+                gp.objDeco.get(i).solidArea.x = gp.objDeco.get(i).solidAreaDefaultX;
+                gp.objDeco.get(i).solidArea.y = gp.objDeco.get(i).solidAreaDefaultY;
+            }
+        }
+        
+        return false;
     }
 }

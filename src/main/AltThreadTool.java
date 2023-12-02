@@ -41,7 +41,6 @@ public class AltThreadTool implements Runnable {
         else
             sleeptime = time - timeDifference;
         
-        System.out.println(sleeptime);
         try
         {
             Thread.sleep(sleeptime);
@@ -69,11 +68,14 @@ public class AltThreadTool implements Runnable {
                 double angle = uTool.getAngle(gp.player.centerPoint, Mouse);
                 int vRecoil = 5;
                 int recoilDelay = 5;
+                int bulletOffsetX = 40;
+                int bulletOffsetY = 40;
+                double offsetAngle = (angle + 90) / 180 * Math.PI;
                 if (gp.player.weaponStorage[gp.player.equippedWeapon].recoil > 0)
                     recoil = random.nextInt((int) (gp.player.weaponStorage[gp.player.equippedWeapon].recoil * -0.5), (int) (gp.player.weaponStorage[gp.player.equippedWeapon].recoil * 0.5));
                 
                 //spawn bullet projectile
-                bullet bullet = new bullet(gp.player.worldX + 24, gp.player.worldY + 18, angle + recoil);
+                bullet bullet = new bullet((int) (gp.player.worldX + 24 + (Math.cos(offsetAngle) * bulletOffsetX)), (int) (gp.player.worldY + 18 + (Math.sin(offsetAngle) * bulletOffsetY)), angle + recoil);
                 gp.projectileList.add(bullet);
                 
                 //player camera shake
@@ -187,4 +189,31 @@ public class AltThreadTool implements Runnable {
         }
     }
     
+    
+    public Runnable bulletUpdate = () ->
+    {
+        for (int i = 0; i < gp.projectileList.size(); i++)
+            if (gp.projectileList.get(i) != null)
+                if (gp.projectileList.get(i).alive == false)
+                    gp.projectileList.remove(i);
+        
+        
+        for (int i = 0; i < gp.projectileList.size(); i++)
+        {
+            if (gp.projectileList.get(i) != null)
+            {
+                int speed = gp.projectileList.get(i).speed;
+                double angle = gp.projectileList.get(i).angle;
+                angle = (double)((angle - 90) / 180 * Math.PI);
+                gp.projectileList.get(i).solidArea.x = (int) (gp.projectileList.get(i).worldX + (Math.cos(angle) * gp.projectileList.get(i).solidAreaOffset.x)) -6;
+                gp.projectileList.get(i).solidArea.y = (int) (gp.projectileList.get(i).worldY + (Math.sin(angle) * gp.projectileList.get(i).solidAreaOffset.y)) -2;
+                if (gp.cChecker.checkBulletCollision(i) == false)
+                {
+                    gp.projectileList.get(i).worldX += (Math.cos(angle) * speed);
+                    gp.projectileList.get(i).worldY += (Math.sin(angle) * speed);
+                }
+                
+            }
+        }
+    };
 }

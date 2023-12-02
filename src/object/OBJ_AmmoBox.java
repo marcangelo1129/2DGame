@@ -20,6 +20,8 @@ public class OBJ_AmmoBox extends SuperObject {
     public OBJ_AmmoBox(GamePanel gp)
     {
         solidArea = new Rectangle(0,0,48,48);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         name = "AmmoBox";
         try
         {

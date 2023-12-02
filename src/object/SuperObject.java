@@ -16,14 +16,12 @@ import main.UtilityTool;
  */
 public class SuperObject {
     public BufferedImage image;
-    public BufferedImage imageTop;
     public String name;
-    public String nameTop;
     public boolean collision = false;
     public int worldX, worldY;
     public Rectangle solidArea;
-    public int solidAreaDefaultX = 0;
-    public int solidAreaDefaultY = 0;
+    public int solidAreaDefaultX;
+    public int solidAreaDefaultY;
     public UtilityTool uTool = new UtilityTool();
     
     public void draw(Graphics2D g2, GamePanel gp)
@@ -32,13 +30,15 @@ public class SuperObject {
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
         g2.drawImage(image,screenX ,screenY,null);
         if (gp.dw.jCheckBox2.isSelected())
-            g2.drawRect(screenX, screenY, solidArea.width, solidArea.height);
+            g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
     }
     
-    public void drawDecorationTop(Graphics2D g2,GamePanel gp)
+    public void drawDeco(Graphics2D g2, GamePanel gp)
     {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = (worldY - gp.player.worldY + gp.player.screenY) - (gp.tileSize * 2);
-        g2.drawImage(imageTop,screenX,screenY,null);
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        g2.drawImage(image,screenX - (image.getWidth() / 4) ,screenY - (image.getHeight() - 48),null);
+        if (gp.dw.jCheckBox2.isSelected())
+            g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
     }
 }

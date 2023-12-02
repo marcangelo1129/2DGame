@@ -61,23 +61,30 @@ public class Player extends Entity {
     }
     public void setDefaultValues()
     {
-        worldX = gp.tileSize * 23;
+        worldX = gp.tileSize * 25;
         worldY = gp.tileSize * 20;
         speed = 4;
-        direction = "down";
+        direction = "left";
         hp = 100;
         centerPoint = new Point(screenX+24,screenY+24);
     }
     public void getPlayerImage()
     {
-        up1 = setup("boy_up_1");
-        up2 = setup("boy_up_2");
-        down1 = setup("boy_down_1");
-        down2 = setup("boy_down_2");
-        left1 = setup("boy_left_1");
-        left2 = setup("boy_left_2");
-        right1 = setup("boy_right_1");
-        right2 = setup("boy_right_2");
+        left[0] = setup("idle_left");
+        left[1] = setup("run_left_1");
+        left[2] = setup("run_left_2");
+        left[3] = setup("run_left_3");
+        left[4] = setup("run_left_4");
+        left[5] = setup("run_left_5");
+        left[6] = setup("run_left_6");
+        
+        right[0] = setup("idle_right");
+        right[1] = setup("run_right_1");
+        right[2] = setup("run_right_2");
+        right[3] = setup("run_right_3");
+        right[4] = setup("run_right_4");
+        right[5] = setup("run_right_5");
+        right[6] = setup("run_right_6");
     }
     public BufferedImage setup(String imageName)
     {
@@ -85,7 +92,7 @@ public class Player extends Entity {
         try
         {
             image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            image = uTool.scaleImage(image, 29, 55);
         }catch (IOException e){e.printStackTrace();}
         return image;
     }
@@ -207,14 +214,46 @@ public class Player extends Entity {
             
 
             spriteCounter++;
-            if (spriteCounter > 12)
+            if (spriteCounter > 2)
             {
-                if (spriteNum == 1)
-                    spriteNum = 2;
-                else if (spriteNum == 2)
-                    spriteNum = 1;
+                if (direction == "upLeft" || direction == "downLeft")
+                {
+                    direction = "left";
+                }
+                if (direction == "upRight" || direction == "downRight")
+                {
+                    direction = "right";
+                }
+                if (direction == "down" || direction == "up")
+                {
+                    direction = mDirection;
+                }
+                if (direction == "left" || direction == "right")
+                {
+                    if (direction == mDirection)
+                    {
+                        int index = spriteNum + 1;
+                        if (index > 6)
+                            spriteNum = 1;
+                        else
+                            spriteNum++;
+                    }
+                    else
+                    {
+                        int index = spriteNum - 1;
+                        if (index < 1)
+                            spriteNum = 6;
+                        else
+                            spriteNum--;
+                    }
+                        
+                }
                 spriteCounter = 0;
             }
+        }
+        else
+        {
+            spriteNum = 0;
         }
     }
     public void pickUpObject(int i)
@@ -254,24 +293,18 @@ public class Player extends Entity {
         BufferedImage image = null;
         if (mDirection == "left")
         {
-            if (spriteNum == 1)
-                image = left1;
-            if (spriteNum == 2)
-                image = left2;
+            image = left[spriteNum];
         }
         else
         {
-            if (spriteNum == 1)
-                image = right1;
-            if (spriteNum == 2)
-                image = right2;
+            image = right[spriteNum];
         }
-        g2.drawImage(image,screenX ,screenY , null);
+        g2.drawImage(image,screenX + (gp.tileSize / 2) - (image.getWidth() / 2) ,screenY  - (image.getHeight() - 48), null);
     }
     public void drawWeapon(Graphics2D g2)
     {   
         centerPoint.x = screenX+24;
-        centerPoint.y = screenY+24;
+        centerPoint.y = screenY+25;
         Point Mouse = Main.getMouseCoordinates();
         weaponAngle = uTool.getAngle(centerPoint, Mouse) - 90;
         

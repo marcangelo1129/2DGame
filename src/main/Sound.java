@@ -5,6 +5,7 @@
 package main;
 
 import java.net.URL;
+import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -16,7 +17,7 @@ import javax.sound.sampled.Clip;
 public class Sound {
     
     public Clip clip;
-    public Clip[] clipArray = new Clip[30];
+    public ArrayList<Clip> clipArray = new ArrayList<>();
     int clipCounter = 1;
     URL soundURL[] = new URL[30];
     
@@ -54,32 +55,26 @@ public class Sound {
     
     public void playSFX (URL sound)
     {
-        int i = 0;
-        while(true)
+        SFXGarbageCollection();
+        try
         {
-            if (clipArray[i] == null)
-            {
-                try
-                    {
-                        clipArray[i] = AudioSystem.getClip();
-                        clipArray[i].open(AudioSystem.getAudioInputStream(sound));
-                        clipArray[i].start();
-                    } catch(Exception e) {}
-                break;
-            }
-            else
-            {
-                if (!clipArray[i].isRunning())
-                {
-                    clipArray[i].close();
-                    clipArray[i] = null;
-                }
-            }
-            if (i < 29) i++;
-            else i = 0;
-        }
+            clipArray.add(AudioSystem.getClip());
+            int clipArrayNum = clipArray.size() - 1;
+            clipArray.get(clipArrayNum).open(AudioSystem.getAudioInputStream(sound));
+            clipArray.get(clipArrayNum).start();
+        } catch(Exception e) {e.printStackTrace();}
+        System.out.println(clipArray.size());
     }
     
-    
-    
+    public void SFXGarbageCollection()
+    {
+        for (int i = 0; i < clipArray.size(); i++)
+        {
+            if (clipArray.get(i).isRunning() != true)
+            {
+                clipArray.get(i).close();
+                clipArray.remove(i);
+            }
+        }
+    }
 }

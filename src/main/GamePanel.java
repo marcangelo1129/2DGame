@@ -14,8 +14,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -30,7 +34,8 @@ import tile.TileManager;
  */
 public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16;
-    final int tileScaling = 3;
+    public final int tileScaling = 3;
+    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     
     
     public final int tileSize = originalTileSize * tileScaling;
@@ -59,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
     //ENTITY & OBJECT
     public Player player = new Player(this, KeyHandler, main);
     public SuperObject obj[] = new SuperObject[10];
-    public SuperObject objDeco[] = new SuperObject[10];
+    public ArrayList<SuperObject> objDeco = new ArrayList<>();
     public WeaponObject wbj[] = new WeaponObject[4];
     public decorationPlacement deco = new decorationPlacement(this);
     public ArrayList<Projectile> projectileList = new ArrayList<>();
@@ -98,6 +103,7 @@ public class GamePanel extends JPanel implements Runnable {
         deco.setDecoration();
         main.setCursor();
         playMusic(0);
+        executorService.scheduleAtFixedRate(att.bulletUpdate,0, 10, TimeUnit.MILLISECONDS);
         
         //component.setCursor( null ); - To reset the cursor you use
         
@@ -152,17 +158,6 @@ public class GamePanel extends JPanel implements Runnable {
     {
         player.update();
         player.cameraPosition();
-        for (int i = 0; i < projectileList.size(); i++)
-        {
-            if (projectileList.get(i) != null)
-            {
-                int speed = projectileList.get(i).speed;
-                double angle = projectileList.get(i).angle;
-                angle = (double)((angle - 90) / 180 * Math.PI);
-                projectileList.get(i).worldX += (Math.cos(angle) * speed);
-                projectileList.get(i).worldY += (Math.sin(angle) * speed);
-            }
-        }
     }
     
     public void paintComponent(Graphics g)//handles graphics
@@ -173,50 +168,66 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
         
         tileM.draw(g2);
-        for (int i = 0; i < obj.length; i++)
-        {
-            if (obj[i] != null)
-            {
-                obj[i].draw(g2, this);
-            }
-        }
-        for (int i = 0; i < objDeco.length; i++)
-        {
-            if (objDeco[i] != null)
-            {
-                objDeco[i].draw(g2, this);
-            }
-        }
         
-        player.draw(g2);
-        for (int i = 0; i < projectileList.size(); i++)
+        
+        for (int i = 0; i <= tileSize * maxWorldRow; i += tileSize)
         {
-            if (projectileList.get(i) != null)
+            for (int j = 0; j < objDeco.size(); j++)
             {
-                int screenX = projectileList.get(i).worldX - player.worldX + player.screenX + projectileList.get(i).centerX;
-                int screenY = projectileList.get(i).worldY - player.worldY + player.screenY + projectileList.get(i).centerY;
-                double angle = projectileList.get(i).angle;
-                angle = (angle - 90) / 180 * Math.PI;
-                projectileList.get(i).solidArea.x = (int) (screenX + (Math.cos(angle) * projectileList.get(i).solidAreaOffset.x)) -6;
-                projectileList.get(i).solidArea.y = (int) (screenY + (Math.sin(angle) * projectileList.get(i).solidAreaOffset.y)) -2;
+                if (objDeco.get(j) != null)
+                {
+                    if (objDeco.get(j).worldY >= i && objDeco.get(j).worldY < i+tileSize)
+                        objDeco.get(j).drawDeco(g2, this);
+                }
+            }
+            
+            for (int j = 0; j < obj.length; j++)
+            {
+                if (obj[j] != null)
+                {
+                    if (obj[j].worldY >= i && obj[j].worldY < i+tileSize)
+                        obj[j].draw(g2, this);
+                }
+            }
+            
+            if (player.worldY >= i && player.worldY < i+tileSize)
+            {
+                player.draw(g2);
                 if (dw.jCheckBox2.isSelected())
-                    g2.drawRect(projectileList.get(i).solidArea.x, projectileList.get(i).solidArea.y, projectileList.get(i).solidArea.width, projectileList.get(i).solidArea.height);
-                g2.rotate(Math.toRadians(projectileList.get(i).angle - 90), screenX + projectileList.get(i).centerX, screenY + projectileList.get(i).centerY);
-                g2.drawImage(projectileList.get(i).image,screenX,screenY,null);
-                g2.rotate(Math.toRadians(-projectileList.get(i).angle + 90), screenX + projectileList.get(i).centerX, screenY + projectileList.get(i).centerY);
-                
+                    g2.drawRect(player.screenX+player.solidArea.x, player.screenY+player.solidArea.y, player.solidArea.width, player.solidArea.height);
+                player.drawWeapon(g2);
             }
-        }
-        player.drawWeapon(g2);
-        for (int i = 0; i < objDeco.length; i++)
-        {
-            if (objDeco[i] != null)
+            
+            for (int j = 0; j < projectileList.size(); j++)
             {
-                objDeco[i].drawDecorationTop(g2, this);
+                if (projectileList.get(j) != null)
+                {
+                    if (projectileList.get(j).solidArea.y >= i && projectileList.get(j).solidArea.y < i+tileSize)
+                    {
+                        int centerX = projectileList.get(j).centerX;
+                        int centerY = projectileList.get(j).centerY;
+                        BufferedImage image = projectileList.get(j).image;
+                        double angle = Math.toRadians(projectileList.get(j).angle - 90);
+                        int screenX = projectileList.get(j).worldX - player.worldX + player.screenX + projectileList.get(j).centerX;
+                        int screenY = projectileList.get(j).worldY - player.worldY + player.screenY + projectileList.get(j).centerY;
+
+                        if (dw.jCheckBox2.isSelected())
+                            g2.drawRect(projectileList.get(j).solidArea.x - player.worldX + player.screenX + projectileList.get(j).centerX, projectileList.get(j).solidArea.y - player.worldY + player.screenY + projectileList.get(j).centerY, projectileList.get(j).solidArea.width, projectileList.get(j).solidArea.height);
+                        g2.rotate(angle, screenX + centerX, screenY + centerY);
+                        g2.drawImage(image,screenX,screenY,null);
+                        g2.rotate(-angle, screenX + centerX, screenY + centerY);
+                        //this loop can throw multiple exeptions without crashing but according to the internet, "unless you're throwing hundreds or thousands of exceptions, you still won't notice the cost." - by Patashu at https://stackoverflow.com/questions/16451777/is-it-expensive-to-use-try-catch-blocks-even-if-an-exception-is-never-thrown
+                    }
+                }
             }
         }
-        
-        
+//        for (int j = 0; j < objDeco.length; j++)
+//        {
+//            if (objDeco[j] != null)
+//            {
+//                objDeco[j].drawDecorationTop(g2, this);
+//            }
+//        }
         ui.draw(g2);
         if (dw.jCheckBox3.isSelected())
             g2.drawRect(pointer.x - 6, pointer.y - 30, 10, 10);

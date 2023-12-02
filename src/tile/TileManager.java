@@ -36,12 +36,12 @@ public class TileManager {
     }
     public void getTileImage()
     {
-        setup(0, "grass", false);
-        setup(1, "stone", true);
-        setup(2, "water", true);
-        setup(3, "road", false);
+        setup(0, "grass", false, false);
+        setup(1, "stone", true, true);
+        setup(2, "water", true, false);
+        setup(3, "road", false, false);
     }
-    public void setup(int index, String imageName, boolean collision)
+    public void setup(int index, String imageName, boolean collision, boolean bulletCollision)
     {
         UtilityTool uTool = new UtilityTool();
         
@@ -51,6 +51,7 @@ public class TileManager {
             tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName + ".png"));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
+            tile[index].bulletCollision = bulletCollision;
             
         }catch(IOException ex){ex.printStackTrace();}
     }

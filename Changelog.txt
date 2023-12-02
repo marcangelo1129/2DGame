@@ -29,13 +29,26 @@
                               = Sprite of object Assault Rifle has changed and renamed to M4A1
 
 (Marc) Version 0.0.15   --->  + Camera now extends towards the mouse
-                              = Bug fixed where sometimes gun sounds doesn't play
+                              = Bug fixed where gun sounds sometimes doesn't play
 
 (Marc) Version 0.0.16   --->  + Added ammo system
                               + Added projectiles. Weapon now shoots bullets (no collision)
-                              = Sleep method code improved for more accurate sleep accuracy
+                              = Sleep method code improved for more accurate thread sleep
 
 (Marc) Version 0.0.16a  --->  = Bug fixed where getting mouse coordinates also includes the title bar area
-                                which made inaccuracies in equipped weapon location and angles (rookie mistake)
-                              = draw method of player weapon reconstructed for accurate weapon draw location
-                                (It also made importing new weapons much easier)
+                                which made inaccuracies in player's weapon location and angles (rookie mistake)
+                              = Draw method of player's weapon reconstructed for accurate weapon draw location
+                                (it also made importing new weapons much easier)
+
+(Marc) Version 0.0.17   --->  = Reconstructed playSFX method to use arraylist instead of clip array which enables to
+                                call method as many as you can without the arrays interfering each other
+                              = Same reconstruction on decoration objects but it made importing new deco objects easier
+                              = GamePanel's draw method improved. All entities/objects get drawn in layers
+                                depending on their y-axis (lower y-axis = lower layer draw)
+                              = Decoration objects's collision area now only spans a single tile, and with the new 
+                                GamePanel's draw method, image doesn't need to be splitted into two. 
+                                Image are now also centered inside the collision area 
+                                (might get changed on future implementation of decoration objects)
+                              = Character image changed to test new animation codes. Weapon scaling changed to match
+                                character size (character image might get changed again in later updates)
+                              + Added collision to bullets

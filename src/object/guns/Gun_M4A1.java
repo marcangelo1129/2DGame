@@ -24,10 +24,10 @@ public class Gun_M4A1 extends WeaponObject {
         fireRate = 88;//88
         damage = 28;
         reloadTime = 1300;
-        centerX = 31;
-        centerY = 12;
-        bulletX = 31;
-        bulletY = 12;
+        centerX = 25;
+        centerY = 10;
+        bulletX = 25;
+        bulletY = 10;
         defaultCenterX = centerX;
         weaponWidth = 353;
         weaponHeight = 124;

@@ -40,7 +40,7 @@ public class WeaponObject {
     public int defaultCenterX;
     public int weaponWidth;
     public int weaponHeight;
-    public double weaponScaling = 0.25f;
+    public double weaponScaling = 0.20f;
     public double UIScaling = 0.50f;
     public boolean reload = false;
     UtilityTool uTool = new UtilityTool();

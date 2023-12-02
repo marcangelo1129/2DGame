@@ -16,33 +16,34 @@ import object.SuperObject;
  */
 public class bigTree extends SuperObject {
     Rectangle size;
-    Rectangle sizeTop;
     
-    public bigTree(GamePanel gp)
+    public bigTree(GamePanel gp, int worldX, int worldY)
     {
-        solidArea = new Rectangle(32,16);//Collision Size
+        //object-specific variable assignment
+        solidArea = new Rectangle(0,0,16,16);//Collision offset (x,y) and size (width,height) no need to edit if collision is false
+        size = new Rectangle(32, 48);//image size
+        name = "bigtree";//image name
         collision = true;
-        size = new Rectangle(solidArea.width, solidArea.height);//bottom image size. change if size is not same as the collision size.
-        sizeTop = new Rectangle(32, 32);//top image size
-        name = "bigtree_bottom";//bottom image name
-        nameTop = "bigtree_top";//top image name
-        imageLoad();//ignore this
+        
+        //constructor variable assignment. Do not edit
+        this.worldX = worldX * gp.tileSize;
+        this.worldY = worldY * gp.tileSize;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        
+        imageLoad(gp);//ignore this
     }
     
-    public void imageLoad()//do not touch code below
+    public void imageLoad(GamePanel gp)//do not touch code below
     {
-        solidArea.width = solidArea.width * 3;
-        solidArea.height = solidArea.height * 3;
-        size.width = size.width * 3;
-        size.height = size.height * 3;
-        sizeTop.width = sizeTop.width * 3;
-        sizeTop.height = sizeTop.height * 3;
+        solidArea.width = solidArea.width * gp.tileScaling;
+        solidArea.height = solidArea.height * gp.tileScaling;
+        size.width = size.width * gp.tileScaling;
+        size.height = size.height * gp.tileScaling;
         try
         {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/decoration/"+name+".png"));
             image = uTool.scaleImage(image, size.width, size.height);
-            imageTop = ImageIO.read(getClass().getResourceAsStream("/objects/decoration/"+nameTop+".png"));
-            imageTop = uTool.scaleImage(imageTop, sizeTop.width, sizeTop.height);
         }catch(IOException ex) {ex.printStackTrace();}
     }
 }

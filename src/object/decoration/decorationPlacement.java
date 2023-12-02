@@ -18,16 +18,10 @@ public class decorationPlacement {
     }
     public void setDecoration()
     {
-        gp.objDeco[0] = new bigTree(gp);//decoration's class
-        gp.objDeco[0].worldX = 27 * gp.tileSize;//x location of this decoration
-        gp.objDeco[0].worldY = 18 * gp.tileSize;//y location of this decoration
-        
-        gp.objDeco[1] = new bigTree(gp);
-        gp.objDeco[1].worldX = 29 * gp.tileSize;
-        gp.objDeco[1].worldY = 18 * gp.tileSize;
-        
-        // to add more decoration, simply copy three codes from the above, change its index
-        // ( number inside ---> [ ] ) and change the class name.
+        gp.objDeco.add(new bigTree(gp, 27, 15));
+        gp.objDeco.add(new bigTree(gp, 29, 18));
+        // to add more decoration, simply copy one code above, change class name
+        // with its corresponding worldX and worldY coordinates.
     }
     
     
