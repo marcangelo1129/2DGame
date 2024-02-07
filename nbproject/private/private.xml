@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/entity/Player.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>356</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/GamePanel.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/OBJ_AmmoBox.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/SuperObject.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/OBJ_M4A1.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/Sound.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/decoration/bigTree.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/decoration/decorationPlacement.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/guns/Gun_M4A1.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/Main.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/entity/bullet.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/AltThreadTool.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/CollisionChecker.java</file>
             <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/entity/Player.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/AssetSetter.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/userInterface/UIGame.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/object/guns/WeaponObject.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/GamePanel.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/Main.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/AltThreadTool.java</file>
             <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/entity/Projectile.java</file>
-            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/main/KeyHandler.java</file>
             <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/entity/Entity.java</file>
+            <file>file:/C:/Users/Dangerouze/Documents/GitHub/2DGame/src/Debug/DebugWindow.java</file>
         </group>
     </open-files>
 </project-private>

@@ -16,19 +16,17 @@ public class bullet extends Projectile {
 
     
     
-    public bullet (int worldX, int worldY, double angle)
+    public bullet ()
     {
-        speed = 24;//40
+        name = "bullet";
+        speed = 30;//24
         width = 163;
         height = 12;
         centerX = 0;
         centerY = 3;
         alive = true;
-        solidArea = new Rectangle(0,0,10,10);
-        solidAreaOffset = new Point(80,80);
-        this.worldX = worldX;
-        this.worldY = worldY;
-        this.angle = angle;
+        solidArea = new Rectangle(50,0,10,10);
+        solidAreaOffset = new Point(0,0);
         try
         {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/bullet.png"));

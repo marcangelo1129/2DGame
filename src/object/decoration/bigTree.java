@@ -14,22 +14,21 @@ import object.SuperObject;
  *
  * @author Dangerouze
  */
-public class bigTree extends SuperObject {
+public class bigtree extends SuperObject {
     Rectangle size;
     
-    public bigTree(GamePanel gp, int worldX, int worldY)
+    public bigtree(GamePanel gp, int worldX, int worldY)
     {
         //object-specific variable assignment
         solidArea = new Rectangle(0,0,16,16);//Collision offset (x,y) and size (width,height) no need to edit if collision is false
         size = new Rectangle(32, 48);//image size
         name = "bigtree";//image name
         collision = true;
+        bulletCollision = true;
         
         //constructor variable assignment. Do not edit
         this.worldX = worldX * gp.tileSize;
         this.worldY = worldY * gp.tileSize;
-        solidAreaDefaultX = solidArea.x;
-        solidAreaDefaultY = solidArea.y;
         
         imageLoad(gp);//ignore this
     }
@@ -40,6 +39,9 @@ public class bigTree extends SuperObject {
         solidArea.height = solidArea.height * gp.tileScaling;
         size.width = size.width * gp.tileScaling;
         size.height = size.height * gp.tileScaling;
+        solidArea.x = ((size.width - solidArea.width) / 2) + ((solidArea.x * gp.tileScaling) / 2);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         try
         {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/decoration/"+name+".png"));

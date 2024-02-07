@@ -17,7 +17,7 @@ public class weaponBackground extends UIObject {
     public weaponBackground()
     {
         name = "weaponUI";
-        area = new Rectangle(10,422,288, 144);
+        area = new Rectangle(10,154,288, 144);
         try
         {
             image = ImageIO.read(getClass().getResourceAsStream("/userInterface/GameUI/weaponBackground.png"));

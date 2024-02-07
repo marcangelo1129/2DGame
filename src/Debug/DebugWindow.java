@@ -31,9 +31,17 @@ public class DebugWindow extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        NoClip = new javax.swing.JCheckBox();
+        DisplayCollisionBox = new javax.swing.JCheckBox();
+        ShowCameraPointer = new javax.swing.JCheckBox();
+        ShowAIPath = new javax.swing.JCheckBox();
+        DisplayHitBox = new javax.swing.JCheckBox();
+        jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        entityCount = new javax.swing.JLabel();
+        disableAI = new javax.swing.JCheckBox();
+        showCoordinates = new javax.swing.JCheckBox();
+        disableZombieGen = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,26 +65,62 @@ public class DebugWindow extends javax.swing.JFrame {
 
         jLabel3.setText("Character Speed:");
 
-        jCheckBox1.setText("NoClip");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        NoClip.setText("NoClip");
+        NoClip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                NoClipActionPerformed(evt);
             }
         });
 
-        jCheckBox2.setText("Display Object Collision Box");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        DisplayCollisionBox.setText("Display Collision Box");
+        DisplayCollisionBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                DisplayCollisionBoxActionPerformed(evt);
             }
         });
 
-        jCheckBox3.setText("Show Camera Pointer");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+        ShowCameraPointer.setText("Show Camera Pointer");
+        ShowCameraPointer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
+                ShowCameraPointerActionPerformed(evt);
             }
         });
+
+        ShowAIPath.setText("Show AI Path");
+        ShowAIPath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowAIPathActionPerformed(evt);
+            }
+        });
+
+        DisplayHitBox.setText("Display Hit Box");
+        DisplayHitBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DisplayHitBoxActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Spawn Zombie");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Entity Count:");
+
+        entityCount.setText("jLabel5");
+
+        disableAI.setText("Disable AI");
+
+        showCoordinates.setText("Show Coordinates on Tiles");
+        showCoordinates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showCoordinatesActionPerformed(evt);
+            }
+        });
+
+        disableZombieGen.setText("Disable Zombie Generation");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,16 +133,28 @@ public class DebugWindow extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSpinner1))
-                        .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(jCheckBox3))
-                .addContainerGap(161, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(showCoordinates))
+                    .addComponent(NoClip)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DisplayCollisionBox)
+                    .addComponent(ShowCameraPointer)
+                    .addComponent(ShowAIPath)
+                    .addComponent(DisplayHitBox)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(disableZombieGen))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(entityCount))
+                    .addComponent(disableAI))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,18 +164,33 @@ public class DebugWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(showCoordinates))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox1)
+                .addComponent(NoClip)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox2)
+                .addComponent(DisplayCollisionBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox3)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addComponent(ShowCameraPointer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ShowAIPath)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DisplayHitBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(disableZombieGen))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(entityCount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(disableAI)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -129,21 +200,38 @@ public class DebugWindow extends javax.swing.JFrame {
         gp.tileM.loadMap("Sprites/maps/map2.txt", true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void NoClipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoClipActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_NoClipActionPerformed
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
         gp.player.speed = (Integer)jSpinner1.getValue();
     }//GEN-LAST:event_jSpinner1StateChanged
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void DisplayCollisionBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayCollisionBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+    }//GEN-LAST:event_DisplayCollisionBoxActionPerformed
 
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+    private void ShowCameraPointerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowCameraPointerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
+    }//GEN-LAST:event_ShowCameraPointerActionPerformed
+
+    private void ShowAIPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowAIPathActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ShowAIPathActionPerformed
+
+    private void DisplayHitBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayHitBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DisplayHitBoxActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //gp.aSetter.addEntityRandomly("zombie", gp.waveFunction.zombie);
+        gp.waveFunction.spawnRandomZombie();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void showCoordinatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showCoordinatesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showCoordinatesActionPerformed
 
     
     /**
@@ -182,13 +270,21 @@ public class DebugWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JCheckBox DisplayCollisionBox;
+    public javax.swing.JCheckBox DisplayHitBox;
+    public javax.swing.JCheckBox NoClip;
+    public javax.swing.JCheckBox ShowAIPath;
+    public javax.swing.JCheckBox ShowCameraPointer;
+    public javax.swing.JCheckBox disableAI;
+    public javax.swing.JCheckBox disableZombieGen;
+    public javax.swing.JLabel entityCount;
     private javax.swing.JButton jButton1;
-    public javax.swing.JCheckBox jCheckBox1;
-    public javax.swing.JCheckBox jCheckBox2;
-    public javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSpinner jSpinner1;
+    public javax.swing.JCheckBox showCoordinates;
     // End of variables declaration//GEN-END:variables
 }

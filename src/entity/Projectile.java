@@ -15,9 +15,10 @@ import main.UtilityTool;
  */
 public class Projectile {
     
-    public int worldX;
-    public int worldY;
-    public int speed;
+    public BufferedImage[] explosion = new BufferedImage[9];
+    public double worldX;
+    public double worldY;
+    public double speed;
     public Entity user;
     public double angle;
     public int damage;
@@ -31,6 +32,11 @@ public class Projectile {
     public int centerX;
     public int centerY;
     public boolean alive;
+    public String name;
+    public int timer;
+    public boolean bulletTrail;
+    public int index;
+    public String projectileType;
     public UtilityTool uTool = new UtilityTool();
     
 

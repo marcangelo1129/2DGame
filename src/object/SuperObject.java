@@ -4,9 +4,11 @@
  */
 package object;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import main.GamePanel;
 import main.UtilityTool;
 
@@ -18,27 +20,50 @@ public class SuperObject {
     public BufferedImage image;
     public String name;
     public boolean collision = false;
+    public boolean bulletCollision = false;
     public int worldX, worldY;
     public Rectangle solidArea;
+    public int solidAreaWorldX;
+    public int solidAreaWorldY;
     public int solidAreaDefaultX;
     public int solidAreaDefaultY;
     public UtilityTool uTool = new UtilityTool();
+    public Rectangle worldSolidArea;
+    Random random = new Random();
+    public int timer;
+    public boolean isAlive = true;
     
     public void draw(Graphics2D g2, GamePanel gp)
     {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
         g2.drawImage(image,screenX ,screenY,null);
-        if (gp.dw.jCheckBox2.isSelected())
+        Color defaultColor = g2.getColor();
+        g2.setColor(Color.CYAN);
+        if (gp.dw.DisplayCollisionBox.isSelected())
             g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
+        g2.setColor(defaultColor);
     }
     
     public void drawDeco(Graphics2D g2, GamePanel gp)
     {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
-        g2.drawImage(image,screenX - (image.getWidth() / 4) ,screenY - (image.getHeight() - 48),null);
-        if (gp.dw.jCheckBox2.isSelected())
-            g2.drawRect(screenX+solidArea.x, screenY+solidArea.y, solidArea.width, solidArea.height);
+        g2.drawImage(image,screenX,screenY - (image.getHeight() - solidArea.height),null);
+        Color defaultColor = g2.getColor();
+        g2.setColor(Color.CYAN);
+        if (gp.dw.DisplayCollisionBox.isSelected())
+            g2.drawRect(screenX+solidAreaDefaultX, screenY+solidAreaDefaultY, solidArea.width, solidArea.height);
+        g2.setColor(defaultColor);
+    }
+    
+    public void pickUp(){}
+    
+    public void update()
+    {
+        if (timer <=0)
+            isAlive = false;
+        else
+            timer -= 16;
     }
 }
